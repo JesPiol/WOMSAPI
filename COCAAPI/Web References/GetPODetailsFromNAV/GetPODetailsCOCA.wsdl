@@ -1,0 +1,617 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:tns="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA" targetNamespace="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <schema xmlns:tns="urn:microsoft-dynamics-nav/xmlports/x50001" elementFormDefault="qualified" targetNamespace="urn:microsoft-dynamics-nav/xmlports/x50001" xmlns="http://www.w3.org/2001/XMLSchema">
+      <complexType name="PurchaseHeader">
+        <sequence>
+          <element minOccurs="1" maxOccurs="1" name="PONo" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="OrderDate" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="PRNo" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="RequisitionDate" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="VendorNo" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="VendorName" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="AmountVAT" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="PurchaserCode" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="PlantNo" type="string" />
+          <element minOccurs="1" maxOccurs="unbounded" name="CompanyName" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="Status" type="string" />
+        </sequence>
+      </complexType>
+      <complexType name="ExportNAVPOIntoEContracts" mixed="true">
+        <sequence>
+          <element minOccurs="1" maxOccurs="unbounded" name="PurchaseHeader" type="tns:PurchaseHeader" />
+        </sequence>
+      </complexType>
+      <element name="ExportNAVPOIntoEContracts" type="tns:ExportNAVPOIntoEContracts" />
+    </schema>
+    <schema xmlns:tns="urn:microsoft-dynamics-nav/xmlports/x50082" elementFormDefault="qualified" targetNamespace="urn:microsoft-dynamics-nav/xmlports/x50082" xmlns="http://www.w3.org/2001/XMLSchema">
+      <complexType name="PostedPurchaseInvoice">
+        <sequence>
+          <element minOccurs="1" maxOccurs="1" name="No" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="VendorInvoiceNo" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="PaymentTermsCode" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="DueDate" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="Particulars" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="AmountIncVAT" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="PostingDate" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="DocumentNo" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="DocumentDate" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="PrepayDocumentNo" type="string" />
+        </sequence>
+      </complexType>
+      <complexType name="PostedPurchaseInvoiceXML" mixed="true">
+        <sequence>
+          <element minOccurs="1" maxOccurs="unbounded" name="PostedPurchaseInvoice" type="tns:PostedPurchaseInvoice" />
+        </sequence>
+      </complexType>
+      <element name="PostedPurchaseInvoiceXML" type="tns:PostedPurchaseInvoiceXML" />
+    </schema>
+    <schema xmlns:tns="urn:microsoft-dynamics-nav/xmlports/x50106" elementFormDefault="qualified" targetNamespace="urn:microsoft-dynamics-nav/xmlports/x50106" xmlns="http://www.w3.org/2001/XMLSchema">
+      <complexType name="PRHeader">
+        <sequence>
+          <element minOccurs="1" maxOccurs="1" name="PRNo" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="PRDate" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="Department" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="IntendedFor" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="PlantNo" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="WorkDescription" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="PurchaserCode" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="PurchaserName" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="PRMonitoringStatus" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="PRApprovingStatus" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="PRStatus" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="PRType" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="OutageCode" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="OutageCodeDescription" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="Priority" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="PlantRelated" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="TechnicalReportRequired" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="ProjectLocation" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="ProjectInCharge" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="BudgetTotalAmount" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="PRReleasedDate" type="string" />
+        </sequence>
+      </complexType>
+      <complexType name="PRLine">
+        <sequence>
+          <element minOccurs="1" maxOccurs="1" name="PRNo_Line" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="No_Line" type="string" />
+        </sequence>
+      </complexType>
+      <complexType name="XMLPortForCOCAPRHeader" mixed="true">
+        <sequence>
+          <element minOccurs="1" maxOccurs="unbounded" name="PRHeader" type="tns:PRHeader" />
+          <element minOccurs="1" maxOccurs="unbounded" name="PRLine" type="tns:PRLine" />
+        </sequence>
+      </complexType>
+      <element name="XMLPortForCOCAPRHeader" type="tns:XMLPortForCOCAPRHeader" />
+    </schema>
+    <schema xmlns:tns="urn:microsoft-dynamics-nav/xmlports/x50107" elementFormDefault="qualified" targetNamespace="urn:microsoft-dynamics-nav/xmlports/x50107" xmlns="http://www.w3.org/2001/XMLSchema">
+      <complexType name="POHeader">
+        <sequence>
+          <element minOccurs="1" maxOccurs="1" name="PRNo" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="PONo" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="DateArchived" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="BuyFromVendorNo" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="BuyFromVendorName" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="POStatus" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="POTotalLineAmount" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="POBillingTerms" type="string" />
+          <element minOccurs="1" maxOccurs="1" default="0" name="NoOfProgressBilling" type="int" />
+          <element minOccurs="1" maxOccurs="1" name="PBMilestone" type="string" />
+          <element minOccurs="1" maxOccurs="1" default="0" name="VersionNo" type="int" />
+          <element minOccurs="1" maxOccurs="1" name="PaymentType" type="string" />
+        </sequence>
+      </complexType>
+      <complexType name="POLine">
+        <sequence>
+          <element minOccurs="1" maxOccurs="1" name="No_Line" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="PRNo_Line" type="string" />
+        </sequence>
+      </complexType>
+      <complexType name="XMLPortForCOCAPOHeader" mixed="true">
+        <sequence>
+          <element minOccurs="1" maxOccurs="unbounded" name="POHeader" type="tns:POHeader" />
+          <element minOccurs="1" maxOccurs="unbounded" name="POLine" type="tns:POLine" />
+        </sequence>
+      </complexType>
+      <element name="XMLPortForCOCAPOHeader" type="tns:XMLPortForCOCAPOHeader" />
+    </schema>
+    <schema xmlns:tns="urn:microsoft-dynamics-nav/xmlports/x50109" elementFormDefault="qualified" targetNamespace="urn:microsoft-dynamics-nav/xmlports/x50109" xmlns="http://www.w3.org/2001/XMLSchema">
+      <complexType name="PIHeader">
+        <sequence>
+          <element minOccurs="1" maxOccurs="1" name="PPINNo" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="InvoiceDate" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="InvoiceAmount" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="PONo" type="string" />
+        </sequence>
+      </complexType>
+      <complexType name="XMLPortForCOCAPIHeader" mixed="true">
+        <sequence>
+          <element minOccurs="1" maxOccurs="unbounded" name="PIHeader" type="tns:PIHeader" />
+        </sequence>
+      </complexType>
+      <element name="XMLPortForCOCAPIHeader" type="tns:XMLPortForCOCAPIHeader" />
+    </schema>
+    <schema elementFormDefault="qualified" targetNamespace="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA" xmlns="http://www.w3.org/2001/XMLSchema">
+      <element name="InsertIntoPRSummary">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="pRNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="pRDate" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="department" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="pRReceivedDate" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="pRReleasedDate" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="plantNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="intendedFor" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="phaseOfWork" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="workDescription" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="status" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="company" type="int" />
+            <element minOccurs="1" maxOccurs="1" name="purchaser" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="bCode" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="bControlNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="priority" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="InsertIntoPRSummary_Result">
+        <complexType>
+          <sequence />
+        </complexType>
+      </element>
+      <element name="UpdateIntoPRSummary">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="documentNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="documentDate" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="vendor" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="pRNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="purchaser" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="amount" type="decimal" />
+            <element minOccurs="1" maxOccurs="1" name="payType" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="promiseDate" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="eReceiptDate" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="UpdateIntoPRSummary_Result">
+        <complexType>
+          <sequence />
+        </complexType>
+      </element>
+      <element name="InsertIntoCOCAInvoices">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="pPINNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="vINo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="terms" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="dueDate" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="particulars" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="amount" type="decimal" />
+            <element minOccurs="1" maxOccurs="1" name="postingDate" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="percent" type="decimal" />
+            <element minOccurs="1" maxOccurs="1" name="pONo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="pPINDate" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="company" type="int" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="InsertIntoCOCAInvoices_Result">
+        <complexType>
+          <sequence />
+        </complexType>
+      </element>
+      <element name="UpdateIntoInvoiceChecks">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="checkNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="checkDate" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="aPVNo" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="UpdateIntoInvoiceChecks_Result">
+        <complexType>
+          <sequence />
+        </complexType>
+      </element>
+      <element name="CheckCOCADetails">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="documentNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="pRNo" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="CheckCOCADetails_Result">
+        <complexType>
+          <sequence />
+        </complexType>
+      </element>
+      <element name="GetConnectionString">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="serverName" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="databaseName" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="userID" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="password" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="GetConnectionString_Result">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="return_value" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="CheckVendorDetails">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="contractNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="vendorNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="pONo" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="CheckVendorDetails_Result">
+        <complexType>
+          <sequence />
+        </complexType>
+      </element>
+      <element name="InsertIntoEContracts">
+        <complexType>
+          <sequence>
+            <element minOccurs="1" maxOccurs="1" name="pONo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="pODate" type="date" />
+            <element minOccurs="1" maxOccurs="1" name="pRNo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="pRDate" type="date" />
+            <element minOccurs="1" maxOccurs="1" name="vendor" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="amount" type="decimal" />
+            <element minOccurs="1" maxOccurs="1" name="purchaser" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="plant" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="company" type="int" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="InsertIntoEContracts_Result">
+        <complexType>
+          <sequence />
+        </complexType>
+      </element>
+      <element name="ExposeNAVPO">
+        <complexType>
+          <sequence>
+            <element xmlns:q1="urn:microsoft-dynamics-nav/xmlports/x50001" minOccurs="1" maxOccurs="1" name="xML" type="q1:ExportNAVPOIntoEContracts" />
+            <element minOccurs="1" maxOccurs="1" name="pONo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="selectedCompany" type="int" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="ExposeNAVPO_Result">
+        <complexType>
+          <sequence>
+            <element xmlns:q2="urn:microsoft-dynamics-nav/xmlports/x50001" minOccurs="1" maxOccurs="1" name="xML" type="q2:ExportNAVPOIntoEContracts" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="ExposeNAVPOCOCA">
+        <complexType>
+          <sequence>
+            <element xmlns:q3="urn:microsoft-dynamics-nav/xmlports/x50082" minOccurs="1" maxOccurs="1" name="xML" type="q3:PostedPurchaseInvoiceXML" />
+            <element minOccurs="1" maxOccurs="1" name="pONo" type="string" />
+            <element minOccurs="1" maxOccurs="1" name="selectedCompany" type="int" />
+            <element minOccurs="1" maxOccurs="1" name="transType" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="ExposeNAVPOCOCA_Result">
+        <complexType>
+          <sequence>
+            <element xmlns:q4="urn:microsoft-dynamics-nav/xmlports/x50082" minOccurs="1" maxOccurs="1" name="xML" type="q4:PostedPurchaseInvoiceXML" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="GetPRForCOCA">
+        <complexType>
+          <sequence>
+            <element xmlns:q5="urn:microsoft-dynamics-nav/xmlports/x50106" minOccurs="1" maxOccurs="1" name="xMLCOCAPRHeader" type="q5:XMLPortForCOCAPRHeader" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="GetPRForCOCA_Result">
+        <complexType>
+          <sequence>
+            <element xmlns:q6="urn:microsoft-dynamics-nav/xmlports/x50106" minOccurs="1" maxOccurs="1" name="xMLCOCAPRHeader" type="q6:XMLPortForCOCAPRHeader" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="GetPOForCOCA">
+        <complexType>
+          <sequence>
+            <element xmlns:q7="urn:microsoft-dynamics-nav/xmlports/x50107" minOccurs="1" maxOccurs="1" name="xMLCOCAPOHeader" type="q7:XMLPortForCOCAPOHeader" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="GetPOForCOCA_Result">
+        <complexType>
+          <sequence>
+            <element xmlns:q8="urn:microsoft-dynamics-nav/xmlports/x50107" minOccurs="1" maxOccurs="1" name="xMLCOCAPOHeader" type="q8:XMLPortForCOCAPOHeader" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="GetPIForCOCA">
+        <complexType>
+          <sequence>
+            <element xmlns:q9="urn:microsoft-dynamics-nav/xmlports/x50109" minOccurs="1" maxOccurs="1" name="xMLCOCAPIHeader" type="q9:XMLPortForCOCAPIHeader" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="GetPIForCOCA_Result">
+        <complexType>
+          <sequence>
+            <element xmlns:q10="urn:microsoft-dynamics-nav/xmlports/x50109" minOccurs="1" maxOccurs="1" name="xMLCOCAPIHeader" type="q10:XMLPortForCOCAPIHeader" />
+          </sequence>
+        </complexType>
+      </element>
+    </schema>
+  </types>
+  <message name="InsertIntoPRSummary">
+    <part name="parameters" element="tns:InsertIntoPRSummary" />
+  </message>
+  <message name="InsertIntoPRSummary_Result">
+    <part name="parameters" element="tns:InsertIntoPRSummary_Result" />
+  </message>
+  <message name="UpdateIntoPRSummary">
+    <part name="parameters" element="tns:UpdateIntoPRSummary" />
+  </message>
+  <message name="UpdateIntoPRSummary_Result">
+    <part name="parameters" element="tns:UpdateIntoPRSummary_Result" />
+  </message>
+  <message name="InsertIntoCOCAInvoices">
+    <part name="parameters" element="tns:InsertIntoCOCAInvoices" />
+  </message>
+  <message name="InsertIntoCOCAInvoices_Result">
+    <part name="parameters" element="tns:InsertIntoCOCAInvoices_Result" />
+  </message>
+  <message name="UpdateIntoInvoiceChecks">
+    <part name="parameters" element="tns:UpdateIntoInvoiceChecks" />
+  </message>
+  <message name="UpdateIntoInvoiceChecks_Result">
+    <part name="parameters" element="tns:UpdateIntoInvoiceChecks_Result" />
+  </message>
+  <message name="CheckCOCADetails">
+    <part name="parameters" element="tns:CheckCOCADetails" />
+  </message>
+  <message name="CheckCOCADetails_Result">
+    <part name="parameters" element="tns:CheckCOCADetails_Result" />
+  </message>
+  <message name="GetConnectionString">
+    <part name="parameters" element="tns:GetConnectionString" />
+  </message>
+  <message name="GetConnectionString_Result">
+    <part name="parameters" element="tns:GetConnectionString_Result" />
+  </message>
+  <message name="CheckVendorDetails">
+    <part name="parameters" element="tns:CheckVendorDetails" />
+  </message>
+  <message name="CheckVendorDetails_Result">
+    <part name="parameters" element="tns:CheckVendorDetails_Result" />
+  </message>
+  <message name="InsertIntoEContracts">
+    <part name="parameters" element="tns:InsertIntoEContracts" />
+  </message>
+  <message name="InsertIntoEContracts_Result">
+    <part name="parameters" element="tns:InsertIntoEContracts_Result" />
+  </message>
+  <message name="ExposeNAVPO">
+    <part name="parameters" element="tns:ExposeNAVPO" />
+  </message>
+  <message name="ExposeNAVPO_Result">
+    <part name="parameters" element="tns:ExposeNAVPO_Result" />
+  </message>
+  <message name="ExposeNAVPOCOCA">
+    <part name="parameters" element="tns:ExposeNAVPOCOCA" />
+  </message>
+  <message name="ExposeNAVPOCOCA_Result">
+    <part name="parameters" element="tns:ExposeNAVPOCOCA_Result" />
+  </message>
+  <message name="GetPRForCOCA">
+    <part name="parameters" element="tns:GetPRForCOCA" />
+  </message>
+  <message name="GetPRForCOCA_Result">
+    <part name="parameters" element="tns:GetPRForCOCA_Result" />
+  </message>
+  <message name="GetPOForCOCA">
+    <part name="parameters" element="tns:GetPOForCOCA" />
+  </message>
+  <message name="GetPOForCOCA_Result">
+    <part name="parameters" element="tns:GetPOForCOCA_Result" />
+  </message>
+  <message name="GetPIForCOCA">
+    <part name="parameters" element="tns:GetPIForCOCA" />
+  </message>
+  <message name="GetPIForCOCA_Result">
+    <part name="parameters" element="tns:GetPIForCOCA_Result" />
+  </message>
+  <portType name="GetPODetailsCOCA_Port">
+    <operation name="InsertIntoPRSummary">
+      <input name="InsertIntoPRSummary" message="tns:InsertIntoPRSummary" />
+      <output name="InsertIntoPRSummary_Result" message="tns:InsertIntoPRSummary_Result" />
+    </operation>
+    <operation name="UpdateIntoPRSummary">
+      <input name="UpdateIntoPRSummary" message="tns:UpdateIntoPRSummary" />
+      <output name="UpdateIntoPRSummary_Result" message="tns:UpdateIntoPRSummary_Result" />
+    </operation>
+    <operation name="InsertIntoCOCAInvoices">
+      <input name="InsertIntoCOCAInvoices" message="tns:InsertIntoCOCAInvoices" />
+      <output name="InsertIntoCOCAInvoices_Result" message="tns:InsertIntoCOCAInvoices_Result" />
+    </operation>
+    <operation name="UpdateIntoInvoiceChecks">
+      <input name="UpdateIntoInvoiceChecks" message="tns:UpdateIntoInvoiceChecks" />
+      <output name="UpdateIntoInvoiceChecks_Result" message="tns:UpdateIntoInvoiceChecks_Result" />
+    </operation>
+    <operation name="CheckCOCADetails">
+      <input name="CheckCOCADetails" message="tns:CheckCOCADetails" />
+      <output name="CheckCOCADetails_Result" message="tns:CheckCOCADetails_Result" />
+    </operation>
+    <operation name="GetConnectionString">
+      <input name="GetConnectionString" message="tns:GetConnectionString" />
+      <output name="GetConnectionString_Result" message="tns:GetConnectionString_Result" />
+    </operation>
+    <operation name="CheckVendorDetails">
+      <input name="CheckVendorDetails" message="tns:CheckVendorDetails" />
+      <output name="CheckVendorDetails_Result" message="tns:CheckVendorDetails_Result" />
+    </operation>
+    <operation name="InsertIntoEContracts">
+      <input name="InsertIntoEContracts" message="tns:InsertIntoEContracts" />
+      <output name="InsertIntoEContracts_Result" message="tns:InsertIntoEContracts_Result" />
+    </operation>
+    <operation name="ExposeNAVPO">
+      <input name="ExposeNAVPO" message="tns:ExposeNAVPO" />
+      <output name="ExposeNAVPO_Result" message="tns:ExposeNAVPO_Result" />
+    </operation>
+    <operation name="ExposeNAVPOCOCA">
+      <input name="ExposeNAVPOCOCA" message="tns:ExposeNAVPOCOCA" />
+      <output name="ExposeNAVPOCOCA_Result" message="tns:ExposeNAVPOCOCA_Result" />
+    </operation>
+    <operation name="GetPRForCOCA">
+      <input name="GetPRForCOCA" message="tns:GetPRForCOCA" />
+      <output name="GetPRForCOCA_Result" message="tns:GetPRForCOCA_Result" />
+    </operation>
+    <operation name="GetPOForCOCA">
+      <input name="GetPOForCOCA" message="tns:GetPOForCOCA" />
+      <output name="GetPOForCOCA_Result" message="tns:GetPOForCOCA_Result" />
+    </operation>
+    <operation name="GetPIForCOCA">
+      <input name="GetPIForCOCA" message="tns:GetPIForCOCA" />
+      <output name="GetPIForCOCA_Result" message="tns:GetPIForCOCA_Result" />
+    </operation>
+  </portType>
+  <binding name="GetPODetailsCOCA_Binding" type="tns:GetPODetailsCOCA_Port">
+    <binding transport="http://schemas.xmlsoap.org/soap/http" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+    <operation name="InsertIntoPRSummary">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA:InsertIntoPRSummary" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="InsertIntoPRSummary">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="InsertIntoPRSummary_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="UpdateIntoPRSummary">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA:UpdateIntoPRSummary" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="UpdateIntoPRSummary">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="UpdateIntoPRSummary_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="InsertIntoCOCAInvoices">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA:InsertIntoCOCAInvoices" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="InsertIntoCOCAInvoices">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="InsertIntoCOCAInvoices_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="UpdateIntoInvoiceChecks">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA:UpdateIntoInvoiceChecks" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="UpdateIntoInvoiceChecks">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="UpdateIntoInvoiceChecks_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="CheckCOCADetails">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA:CheckCOCADetails" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="CheckCOCADetails">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="CheckCOCADetails_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="GetConnectionString">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA:GetConnectionString" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="GetConnectionString">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="GetConnectionString_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="CheckVendorDetails">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA:CheckVendorDetails" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="CheckVendorDetails">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="CheckVendorDetails_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="InsertIntoEContracts">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA:InsertIntoEContracts" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="InsertIntoEContracts">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="InsertIntoEContracts_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="ExposeNAVPO">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA:ExposeNAVPO" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="ExposeNAVPO">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="ExposeNAVPO_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="ExposeNAVPOCOCA">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA:ExposeNAVPOCOCA" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="ExposeNAVPOCOCA">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="ExposeNAVPOCOCA_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="GetPRForCOCA">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA:GetPRForCOCA" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="GetPRForCOCA">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="GetPRForCOCA_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="GetPOForCOCA">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA:GetPOForCOCA" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="GetPOForCOCA">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="GetPOForCOCA_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="GetPIForCOCA">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA:GetPIForCOCA" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="GetPIForCOCA">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="GetPIForCOCA_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+  </binding>
+  <service name="GetPODetailsCOCA">
+    <port name="GetPODetailsCOCA_Port" binding="tns:GetPODetailsCOCA_Binding">
+      <address location="http://thulium.smcdacon.com:7077/BC130_POWER_TEST/WS/Southwest%20Luzon%20Power%20Gen%20Corp/Codeunit/GetPODetailsCOCA" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </port>
+  </service>
+</definitions>

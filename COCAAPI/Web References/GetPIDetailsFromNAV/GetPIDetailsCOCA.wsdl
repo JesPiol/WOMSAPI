@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:tns="urn:microsoft-dynamics-schemas/codeunit/GetPIDetailsCOCA" targetNamespace="urn:microsoft-dynamics-schemas/codeunit/GetPIDetailsCOCA" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <schema xmlns:tns="urn:microsoft-dynamics-nav/xmlports/x50109" elementFormDefault="qualified" targetNamespace="urn:microsoft-dynamics-nav/xmlports/x50109" xmlns="http://www.w3.org/2001/XMLSchema">
+      <complexType name="PIHeader">
+        <sequence>
+          <element minOccurs="1" maxOccurs="1" name="PPINNo" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="InvoiceDate" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="InvoiceAmount" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="PONo" type="string" />
+        </sequence>
+      </complexType>
+      <complexType name="XMLPortForCOCAPIHeader" mixed="true">
+        <sequence>
+          <element minOccurs="1" maxOccurs="unbounded" name="PIHeader" type="tns:PIHeader" />
+        </sequence>
+      </complexType>
+      <element name="XMLPortForCOCAPIHeader" type="tns:XMLPortForCOCAPIHeader" />
+    </schema>
+    <schema elementFormDefault="qualified" targetNamespace="urn:microsoft-dynamics-schemas/codeunit/GetPIDetailsCOCA" xmlns="http://www.w3.org/2001/XMLSchema">
+      <element name="GetPIForCOCA">
+        <complexType>
+          <sequence>
+            <element xmlns:q1="urn:microsoft-dynamics-nav/xmlports/x50109" minOccurs="1" maxOccurs="1" name="xMLCOCAPIHeader" type="q1:XMLPortForCOCAPIHeader" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="GetPIForCOCA_Result">
+        <complexType>
+          <sequence>
+            <element xmlns:q2="urn:microsoft-dynamics-nav/xmlports/x50109" minOccurs="1" maxOccurs="1" name="xMLCOCAPIHeader" type="q2:XMLPortForCOCAPIHeader" />
+          </sequence>
+        </complexType>
+      </element>
+    </schema>
+  </types>
+  <message name="GetPIForCOCA">
+    <part name="parameters" element="tns:GetPIForCOCA" />
+  </message>
+  <message name="GetPIForCOCA_Result">
+    <part name="parameters" element="tns:GetPIForCOCA_Result" />
+  </message>
+  <portType name="GetPIDetailsCOCA_Port">
+    <operation name="GetPIForCOCA">
+      <input name="GetPIForCOCA" message="tns:GetPIForCOCA" />
+      <output name="GetPIForCOCA_Result" message="tns:GetPIForCOCA_Result" />
+    </operation>
+  </portType>
+  <binding name="GetPIDetailsCOCA_Binding" type="tns:GetPIDetailsCOCA_Port">
+    <binding transport="http://schemas.xmlsoap.org/soap/http" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+    <operation name="GetPIForCOCA">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/GetPIDetailsCOCA:GetPIForCOCA" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="GetPIForCOCA">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="GetPIForCOCA_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+  </binding>
+  <service name="GetPIDetailsCOCA">
+    <port name="GetPIDetailsCOCA_Port" binding="tns:GetPIDetailsCOCA_Binding">
+      <address location="http://thulium.smcdacon.com:7077/BC130_POWER_TEST/WS/Sem%20Calaca%20Power%20Corporation/Codeunit/GetPIDetailsCOCA" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </port>
+  </service>
+</definitions>

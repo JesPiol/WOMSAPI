@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:tns="urn:microsoft-dynamics-schemas/codeunit/GetPRDetailsCOCA" targetNamespace="urn:microsoft-dynamics-schemas/codeunit/GetPRDetailsCOCA" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <schema xmlns:tns="urn:microsoft-dynamics-nav/xmlports/x50106" elementFormDefault="qualified" targetNamespace="urn:microsoft-dynamics-nav/xmlports/x50106" xmlns="http://www.w3.org/2001/XMLSchema">
+      <complexType name="PRHeader">
+        <sequence>
+          <element minOccurs="1" maxOccurs="1" name="PRNo" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="PRDate" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="Department" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="IntendedFor" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="PlantNo" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="WorkDescription" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="PurchaserCode" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="PurchaserName" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="PRMonitoringStatus" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="PRApprovingStatus" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="PRStatus" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="PRType" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="OutageCode" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="OutageCodeDescription" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="Priority" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="PlantRelated" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="TechnicalReportRequired" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="ProjectLocation" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="ProjectInCharge" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="BudgetTotalAmount" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="PRReleasedDate" type="string" />
+        </sequence>
+      </complexType>
+      <complexType name="PRLine">
+        <sequence>
+          <element minOccurs="1" maxOccurs="1" name="PRNo_Line" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="No_Line" type="string" />
+        </sequence>
+      </complexType>
+      <complexType name="XMLPortForCOCAPRHeader" mixed="true">
+        <sequence>
+          <element minOccurs="1" maxOccurs="unbounded" name="PRHeader" type="tns:PRHeader" />
+          <element minOccurs="1" maxOccurs="unbounded" name="PRLine" type="tns:PRLine" />
+        </sequence>
+      </complexType>
+      <element name="XMLPortForCOCAPRHeader" type="tns:XMLPortForCOCAPRHeader" />
+    </schema>
+    <schema elementFormDefault="qualified" targetNamespace="urn:microsoft-dynamics-schemas/codeunit/GetPRDetailsCOCA" xmlns="http://www.w3.org/2001/XMLSchema">
+      <element name="GetPRForCOCA">
+        <complexType>
+          <sequence>
+            <element xmlns:q1="urn:microsoft-dynamics-nav/xmlports/x50106" minOccurs="1" maxOccurs="1" name="xMLCOCAPRHeader" type="q1:XMLPortForCOCAPRHeader" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="GetPRForCOCA_Result">
+        <complexType>
+          <sequence>
+            <element xmlns:q2="urn:microsoft-dynamics-nav/xmlports/x50106" minOccurs="1" maxOccurs="1" name="xMLCOCAPRHeader" type="q2:XMLPortForCOCAPRHeader" />
+          </sequence>
+        </complexType>
+      </element>
+    </schema>
+  </types>
+  <message name="GetPRForCOCA">
+    <part name="parameters" element="tns:GetPRForCOCA" />
+  </message>
+  <message name="GetPRForCOCA_Result">
+    <part name="parameters" element="tns:GetPRForCOCA_Result" />
+  </message>
+  <portType name="GetPRDetailsCOCA_Port">
+    <operation name="GetPRForCOCA">
+      <input name="GetPRForCOCA" message="tns:GetPRForCOCA" />
+      <output name="GetPRForCOCA_Result" message="tns:GetPRForCOCA_Result" />
+    </operation>
+  </portType>
+  <binding name="GetPRDetailsCOCA_Binding" type="tns:GetPRDetailsCOCA_Port">
+    <binding transport="http://schemas.xmlsoap.org/soap/http" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+    <operation name="GetPRForCOCA">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/GetPRDetailsCOCA:GetPRForCOCA" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="GetPRForCOCA">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="GetPRForCOCA_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+  </binding>
+  <service name="GetPRDetailsCOCA">
+    <port name="GetPRDetailsCOCA_Port" binding="tns:GetPRDetailsCOCA_Binding">
+      <address location="http://thulium.smcdacon.com:7077/BC130_POWER_TEST/WS/Sem%20Calaca%20Power%20Corporation/Codeunit/GetPRDetailsCOCA" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </port>
+  </service>
+</definitions>
