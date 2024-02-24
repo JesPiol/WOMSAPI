@@ -110,15 +110,21 @@
           <element minOccurs="1" maxOccurs="1" name="POTotalLineAmount" type="string" />
           <element minOccurs="1" maxOccurs="1" name="POBillingTerms" type="string" />
           <element minOccurs="1" maxOccurs="1" default="0" name="NoOfProgressBilling" type="int" />
-          <element minOccurs="1" maxOccurs="1" name="PBMilestone" type="string" />
           <element minOccurs="1" maxOccurs="1" default="0" name="VersionNo" type="int" />
           <element minOccurs="1" maxOccurs="1" name="PaymentType" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="PlantNo" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="PBMilestone" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="POPaymentTermCode" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="OrderDate" type="string" />
         </sequence>
       </complexType>
       <complexType name="POLine">
         <sequence>
           <element minOccurs="1" maxOccurs="1" name="No_Line" type="string" />
           <element minOccurs="1" maxOccurs="1" name="PRNo_Line" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="Description" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="Description2" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="PONo_Line" type="string" />
         </sequence>
       </complexType>
       <complexType name="XMLPortForCOCAPOHeader" mixed="true">
@@ -136,11 +142,32 @@
           <element minOccurs="1" maxOccurs="1" name="InvoiceDate" type="string" />
           <element minOccurs="1" maxOccurs="1" name="InvoiceAmount" type="string" />
           <element minOccurs="1" maxOccurs="1" name="PONo" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="PIPaymentTermCode" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="VendorInvoiceNo" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="AmountIncludingVAT" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="PostingDate" type="string" />
+        </sequence>
+      </complexType>
+      <complexType name="VendorLedgerEntry">
+        <sequence>
+          <element minOccurs="1" maxOccurs="1" name="DocumentNo" type="string" />
+          <element minOccurs="1" maxOccurs="1" default="0" name="ClosedByEntryNo" type="int" />
+          <element minOccurs="1" maxOccurs="1" name="AppliesToId" type="string" />
+        </sequence>
+      </complexType>
+      <complexType name="CheckLedgerEntry">
+        <sequence>
+          <element minOccurs="1" maxOccurs="1" name="CheckDate" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="EntryStatus" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="Amount" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="CheckNo" type="string" />
         </sequence>
       </complexType>
       <complexType name="XMLPortForCOCAPIHeader" mixed="true">
         <sequence>
           <element minOccurs="1" maxOccurs="unbounded" name="PIHeader" type="tns:PIHeader" />
+          <element minOccurs="1" maxOccurs="unbounded" name="VendorLedgerEntry" type="tns:VendorLedgerEntry" />
+          <element minOccurs="1" maxOccurs="unbounded" name="CheckLedgerEntry" type="tns:CheckLedgerEntry" />
         </sequence>
       </complexType>
       <element name="XMLPortForCOCAPIHeader" type="tns:XMLPortForCOCAPIHeader" />
@@ -623,7 +650,7 @@
   </binding>
   <service name="CocaHandshake">
     <port name="CocaHandshake_Port" binding="tns:CocaHandshake_Binding">
-      <address location="http://vela.semcalaca.com:7077/BC2019_CPC/WS/Sem%20Calaca%20Power%20Corporation/Codeunit/CocaHandshake" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <address location="http://vela.semcalaca.com:7077/BC2019_CPC/WS/Southwest%20Luzon%20Power%20Gen%20Corp/Codeunit/CocaHandshake" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
     </port>
   </service>
 </definitions>

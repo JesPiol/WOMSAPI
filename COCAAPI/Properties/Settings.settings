@@ -12,7 +12,7 @@
       <Value Profile="(Default)">http://thulium.smcdacon.com:7077/BC130_POWER_TEST/WS/Sem%20Calaca%20Power%20Corporation/Codeunit/GetPIDetailsCOCA</Value>
     </Setting>
     <Setting Name="COCAAPI_CocaHandshake_CocaHandshake" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://vela.semcalaca.com:7077/BC2019_CPC/WS/Sem%20Calaca%20Power%20Corporation/Codeunit/CocaHandshake</Value>
+      <Value Profile="(Default)">http://vela.semcalaca.com:7077/BC2019_CPC/WS/Southwest%20Luzon%20Power%20Gen%20Corp/Codeunit/CocaHandshake</Value>
     </Setting>
   </Settings>
 </SettingsFile>

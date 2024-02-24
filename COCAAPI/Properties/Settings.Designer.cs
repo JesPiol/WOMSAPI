@@ -59,8 +59,8 @@ namespace COCAAPI.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://vela.semcalaca.com:7077/BC2019_CPC/WS/Sem%20Calaca%20Power%20Corporation/C" +
-            "odeunit/CocaHandshake")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://vela.semcalaca.com:7077/BC2019_CPC/WS/Southwest%20Luzon%20Power%20Gen%20Co" +
+            "rp/Codeunit/CocaHandshake")]
         public string COCAAPI_CocaHandshake_CocaHandshake {
             get {
                 return ((string)(this["COCAAPI_CocaHandshake_CocaHandshake"]));

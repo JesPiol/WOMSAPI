@@ -7,18 +7,29 @@ namespace COCAAPI.Models
 {
     public class ColumnValue
     {
-        public string id { get; set; }
-        public string text { get; set; }
+        public string Id { get; set; }
+        public string Text { get; set; }
+        public int Value { get; set; }
     }
+    
 
     public class Item
     {
         public string Id { get; set; }
         public string Name { get; set; }
         public List<ColumnValue> Column_values { get; set; }
+        public List<Subitem> Subitems { get; set; }
         public string GroupId { get; set; }
         public string GroupTitle { get; set; }
     }
+
+    public class Subitem
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public List<ColumnValue> Column_values { get; set; }
+    }
+
 
     public class ItemsPage
     {

@@ -30,6 +30,13 @@ namespace COCAAPI.Models
         public string ProjectInCharge { get; set; }
         public string Company { get; set; }
         public string BudgetTotalAmount { get; set; }
+
+        // -------------- added JBC
+        public string System { get; set; }
+        public string WithNTP { get; set; }
+        public string NTPNumber { get; set; }
+        public string WithVariationOrder { get; set; }
+        // -------------- added JBC
     }
 
     public class PRLineViewModel

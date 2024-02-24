@@ -827,6 +827,112 @@ namespace COCAAPI.CocaHandshake {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:microsoft-dynamics-nav/xmlports/x50109")]
+    public partial class CheckLedgerEntry {
+        
+        private string checkDateField;
+        
+        private string entryStatusField;
+        
+        private string amountField;
+        
+        private string checkNoField;
+        
+        /// <remarks/>
+        public string CheckDate {
+            get {
+                return this.checkDateField;
+            }
+            set {
+                this.checkDateField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string EntryStatus {
+            get {
+                return this.entryStatusField;
+            }
+            set {
+                this.entryStatusField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Amount {
+            get {
+                return this.amountField;
+            }
+            set {
+                this.amountField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string CheckNo {
+            get {
+                return this.checkNoField;
+            }
+            set {
+                this.checkNoField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9032.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:microsoft-dynamics-nav/xmlports/x50109")]
+    public partial class VendorLedgerEntry {
+        
+        private string documentNoField;
+        
+        private int closedByEntryNoField;
+        
+        private string appliesToIdField;
+        
+        public VendorLedgerEntry() {
+            this.closedByEntryNoField = 0;
+        }
+        
+        /// <remarks/>
+        public string DocumentNo {
+            get {
+                return this.documentNoField;
+            }
+            set {
+                this.documentNoField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public int ClosedByEntryNo {
+            get {
+                return this.closedByEntryNoField;
+            }
+            set {
+                this.closedByEntryNoField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string AppliesToId {
+            get {
+                return this.appliesToIdField;
+            }
+            set {
+                this.appliesToIdField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9032.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:microsoft-dynamics-nav/xmlports/x50109")]
     public partial class PIHeader {
         
         private string pPINNoField;
@@ -836,6 +942,14 @@ namespace COCAAPI.CocaHandshake {
         private string invoiceAmountField;
         
         private string pONoField;
+        
+        private string pIPaymentTermCodeField;
+        
+        private string vendorInvoiceNoField;
+        
+        private string amountIncludingVATField;
+        
+        private string postingDateField;
         
         /// <remarks/>
         public string PPINNo {
@@ -876,6 +990,46 @@ namespace COCAAPI.CocaHandshake {
                 this.pONoField = value;
             }
         }
+        
+        /// <remarks/>
+        public string PIPaymentTermCode {
+            get {
+                return this.pIPaymentTermCodeField;
+            }
+            set {
+                this.pIPaymentTermCodeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string VendorInvoiceNo {
+            get {
+                return this.vendorInvoiceNoField;
+            }
+            set {
+                this.vendorInvoiceNoField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string AmountIncludingVAT {
+            get {
+                return this.amountIncludingVATField;
+            }
+            set {
+                this.amountIncludingVATField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string PostingDate {
+            get {
+                return this.postingDateField;
+            }
+            set {
+                this.postingDateField = value;
+            }
+        }
     }
     
     /// <remarks/>
@@ -888,6 +1042,10 @@ namespace COCAAPI.CocaHandshake {
         
         private PIHeader[] pIHeaderField;
         
+        private VendorLedgerEntry[] vendorLedgerEntryField;
+        
+        private CheckLedgerEntry[] checkLedgerEntryField;
+        
         private string[] textField;
         
         /// <remarks/>
@@ -898,6 +1056,28 @@ namespace COCAAPI.CocaHandshake {
             }
             set {
                 this.pIHeaderField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("VendorLedgerEntry")]
+        public VendorLedgerEntry[] VendorLedgerEntry {
+            get {
+                return this.vendorLedgerEntryField;
+            }
+            set {
+                this.vendorLedgerEntryField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("CheckLedgerEntry")]
+        public CheckLedgerEntry[] CheckLedgerEntry {
+            get {
+                return this.checkLedgerEntryField;
+            }
+            set {
+                this.checkLedgerEntryField = value;
             }
         }
         
@@ -925,6 +1105,12 @@ namespace COCAAPI.CocaHandshake {
         
         private string pRNo_LineField;
         
+        private string descriptionField;
+        
+        private string description2Field;
+        
+        private string pONo_LineField;
+        
         /// <remarks/>
         public string No_Line {
             get {
@@ -942,6 +1128,36 @@ namespace COCAAPI.CocaHandshake {
             }
             set {
                 this.pRNo_LineField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Description {
+            get {
+                return this.descriptionField;
+            }
+            set {
+                this.descriptionField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Description2 {
+            get {
+                return this.description2Field;
+            }
+            set {
+                this.description2Field = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string PONo_Line {
+            get {
+                return this.pONo_LineField;
+            }
+            set {
+                this.pONo_LineField = value;
             }
         }
     }
@@ -972,11 +1188,17 @@ namespace COCAAPI.CocaHandshake {
         
         private int noOfProgressBillingField;
         
-        private string pBMilestoneField;
-        
         private int versionNoField;
         
         private string paymentTypeField;
+        
+        private string plantNoField;
+        
+        private string pBMilestoneField;
+        
+        private string pOPaymentTermCodeField;
+        
+        private string orderDateField;
         
         public POHeader() {
             this.noOfProgressBillingField = 0;
@@ -1074,16 +1296,6 @@ namespace COCAAPI.CocaHandshake {
         }
         
         /// <remarks/>
-        public string PBMilestone {
-            get {
-                return this.pBMilestoneField;
-            }
-            set {
-                this.pBMilestoneField = value;
-            }
-        }
-        
-        /// <remarks/>
         public int VersionNo {
             get {
                 return this.versionNoField;
@@ -1100,6 +1312,46 @@ namespace COCAAPI.CocaHandshake {
             }
             set {
                 this.paymentTypeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string PlantNo {
+            get {
+                return this.plantNoField;
+            }
+            set {
+                this.plantNoField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string PBMilestone {
+            get {
+                return this.pBMilestoneField;
+            }
+            set {
+                this.pBMilestoneField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string POPaymentTermCode {
+            get {
+                return this.pOPaymentTermCodeField;
+            }
+            set {
+                this.pOPaymentTermCodeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string OrderDate {
+            get {
+                return this.orderDateField;
+            }
+            set {
+                this.orderDateField = value;
             }
         }
     }
