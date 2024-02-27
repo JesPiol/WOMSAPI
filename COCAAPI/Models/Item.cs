@@ -38,15 +38,16 @@ namespace COCAAPI.Models
 
     public class Board
     {
-        public List<Group> Groups { get; set; }
-    }
-
-    public class Group
-    {
-        public string Id { get; set; }
-        public string Title { get; set; }
+        //public List<Group> Groups { get; set; }
         public ItemsPage Items_page { get; set; }
     }
+
+    //public class Group
+    //{
+    //    public string Id { get; set; }
+    //    public string Title { get; set; }
+    //    public ItemsPage Items_page { get; set; }
+    //}
 
     public class Data
     {

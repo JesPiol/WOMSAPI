@@ -26,13 +26,40 @@ namespace COCAAPI.Controllers
         private const string sc = "http://VELA.semcalaca.com:7077/BC2019_CPC/WS/Sem%20Calaca%20Power%20Corporation/Codeunit/CocaHandshake";
         private const string sl = "http://VELA.semcalaca.com:7077/BC2019_CPC/WS/Southwest%20Luzon%20Power%20Gen%20Corp/Codeunit/CocaHandshake";
 
+        public List<MondayData> GetBoardIds()
+        {
+            var conString = "Database=COCAWEBDB;Server=192.168.70.231;user=ict;password=ict@ictdept";
+            string query = @"select po.PONo, po.BoardId from PODetails po where po.BoardId != ''";
+            SqlConnection conn = new SqlConnection(conString);
+            conn.Open();
+            SqlCommand cmd = new SqlCommand(query, conn);
+            SqlDataAdapter sqlDa = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            sqlDa.Fill(dt);
+            
+            var arr = new List<MondayData>();
+
+            for (var i = 0; i < dt.Rows.Count; i++)
+            {
+                arr.Add(new MondayData
+                {
+                    PONo = dt.Rows[i]["PONo"].ToString(),
+                    BoardId = dt.Rows[i]["BoardId"].ToString()
+                });
+            }
+
+            conn.Close();
+            return arr.ToList();
+            
+        }
+
         [HttpGet]
         [Route("api/GetMondayDetails")]
-        public async Task<IHttpActionResult> Post(string bId)
+        public async Task<IHttpActionResult> Post()
         {
             try
             {
-                var items = await GetBoardItems(bId);
+                var items = await GetBoardItems();
                 return Ok(items);
             }
             catch (Exception ex)
@@ -41,7 +68,8 @@ namespace COCAAPI.Controllers
             }
         }
         
-        private async Task<IEnumerable> GetBoardItems(string bId)
+        [HttpPost]
+        private async Task<IEnumerable> GetBoardItems()
         {
             using (var httpClient = new HttpClient())
             {
@@ -49,126 +77,125 @@ namespace COCAAPI.Controllers
                 httpClient.DefaultRequestHeaders.Add("API-Version", "2023-10");
                 List<MondayDataViewModel> dt = new List<MondayDataViewModel>();
 
-                string[] boardId = { "6068074403", "5974615366", "6014653679", "6025287789"};
+                var bIds = GetBoardIds();
+                var items = bIds.Select(e => e.BoardId).Distinct();
 
-                //foreach(var b in boardId)
-                //{
-
-                
-                var query = "query { boards (ids: "+bId+") { " +
-                    "groups { id title items_page (limit: 10) { " +
-                    "items { id name column_values { id text } " +
-                    "subitems { id name column_values { id text } } } } } } }";
-                var content = new StringContent(JsonConvert.SerializeObject(new { query }), Encoding.UTF8, "application/json");
-                var response = await httpClient.PostAsync(BaseUrl, content);
-
-                if (response.IsSuccessStatusCode)
+                foreach (var b in items)
                 {
-                    var responseData = await response.Content.ReadAsStringAsync();
-                    var mondayApiResponse = JsonConvert.DeserializeObject<MondayApiResponse>(responseData);
+                        var query = "query { boards (ids: "+b+") { " +
+                        "items_page (limit: 10) { " +
+                        "items { id name column_values { id text } " +
+                        "subitems { id name column_values { id text } } } } } }";
+                    var content = new StringContent(JsonConvert.SerializeObject(new { query }), Encoding.UTF8, "application/json");
+                    var response = await httpClient.PostAsync(BaseUrl, content).ConfigureAwait(false);
 
-                    List<Item> itemList = mondayApiResponse.Data.Boards
-                        .SelectMany(board => board.Groups
-                            .SelectMany(group => group.Items_page.Items
-                                .Select(item => new Item
-                                {
-                                    Id = item.Id,
-                                    Name = item.Name,
-                                    Column_values = item.Column_values,
-                                    Subitems = item.Subitems
-                                        .Select(subitem => new Subitem
-                                        {
-                                            Id = subitem.Id,
-                                            Name = subitem.Name,
-                                            Column_values = subitem.Column_values
-                                        })
-                                        .ToList(),
-                                    GroupId = group.Id,
-                                    GroupTitle = group.Title
-                                })
-                            )
-                        )
-                        .ToList();
-
-                    foreach (var i in itemList)
+                    if (response.IsSuccessStatusCode)
                     {
-                        TimeSpan planned_ts = Convert.ToDateTime(i.Column_values[7].Text) - Convert.ToDateTime(i.Column_values[6].Text);
-                        var plannedDaysDuration = planned_ts.Days;
-                        
-                        foreach (var sub in i.Subitems)
-                        {
-                            if (i.Subitems.Count() > 0)
-                            {
-                                dt.Add(new MondayDataViewModel
-                                {
-                                    GroupId = i.GroupId,
-                                    GroupName = i.GroupTitle,
-                                    ItemId = i.Id,
-                                    ItemName = i.Name,
-                                    WorkGroup = i.Column_values[1].Text,
-                                    PIC = i.Column_values[2].Text,
-                                    SectionHead = i.Column_values[3].Text,
-                                    Contractor = i.Column_values[4].Text,
-                                    ContractorPIC = i.Column_values[5].Text,
-                                    PlannedStartDate = i.Column_values[6].Text,
-                                    PlannedEndDate = i.Column_values[7].Text,
-                                    PlannedDaysDuration = plannedDaysDuration.ToString(),
-                                    PlannedPercentageAccomplishment = i.Column_values[9].Text,
-                                    ActualStartDate = i.Column_values[10].Text,
-                                    ActualEndDate = i.Column_values[11].Text,
-                                    ActualDaysDuration = i.Column_values[12].Text,
-                                    ActualPercentageAccomplishment = i.Column_values[13].Text,
-                                    Variance = i.Column_values[14].Text,
-                                    ObservationRemarksStatus = i.Column_values[15].Text,
-                                    LastUpdated = i.Column_values[16].Text,
-                                    ProgressPicture = i.Column_values[17].Text,
-                                    ITPDocs = i.Column_values[18].Text,
-                                    JobCardNo = i.Column_values[19].Text,
-                                    Sub_ItemId = sub.Id,
-                                    Sub_ItemName = sub.Name,
-                                    Sub_PONo = sub.Column_values[0].Text,
-                                    Sub_DateSubmit = sub.Column_values[1].Text,
-                                    Sub_Id = sub.Column_values[2].Text,
-                                    Sub_IdName = sub.Column_values[3].Text,
-                                    Sub_MilestoneGroup = sub.Column_values[4].Text,
-                                    Sub_MilestoneName = sub.Column_values[5].Text,
-                                    Sub_TaskNo = sub.Column_values[6].Text,
-                                    Sub_PlannedDaysDuration = sub.Column_values[7].Text,
-                                    Sub_WeightedPercentage = sub.Column_values[8].Text,
-                                    Sub_PlannedStartDate = sub.Column_values[9].Text,
-                                    Sub_PlannedEndDate = sub.Column_values[10].Text,
-                                    Sub_TargetCompletionPercentage = sub.Column_values[11].Text,
-                                    Sub_TargetRelativeWeight = sub.Column_values[12].Text,
-                                    Sub_ActualStartDate = sub.Column_values[13].Text,
-                                    Sub_ActualEndDate = sub.Column_values[14].Text,
-                                    Sub_ActualCompletionPercentage = sub.Column_values[15].Text,
-                                    Sub_ActualRelativeWeight = sub.Column_values[16].Text,
-                                    Sub_PlannedStartValidation = sub.Column_values[17].Text,
-                                    Sub_ActualEndValidation = sub.Column_values[18].Text,
-                                    Sub_DPRDate = sub.Column_values[19].Text,
-                                    Sub_MainStatus = sub.Column_values[20].Text,
-                                    Sub_InspectionRequirement = sub.Column_values[21].Text,
-                                    Sub_ITPStatus = sub.Column_values[22].Text,
-                                    Sub_ITPRemarks = sub.Column_values[23].Text,
-                                    Sub_ITPReference = sub.Column_values[24].Text,
-                                    Sub_ITPUploadSigned = sub.Column_values[25].Text,
-                                    Sub_MilestoneItem = sub.Column_values[26].Text,
-                                    Sub_MilestoneDetails = sub.Column_values[27].Text,
-                                    Sub_PaymentTermsCode = sub.Column_values[28].Text,
-                                    Sub_LastUpdated = sub.Column_values[29].Text,
+                        var responseData = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                        var mondayApiResponse = JsonConvert.DeserializeObject<MondayApiResponse>(responseData);
 
-                                });
-                            }
+                        List<Item> itemList = mondayApiResponse.Data.Boards
+                          .SelectMany(board => board.Items_page.Items
+                              .Select(item => new Item
+                              {
+                                  Id = item.Id,
+                                  Name = item.Name,
+                                  Column_values = item.Column_values,
+                                  Subitems = item.Subitems
+                                      .Select(subitem => new Subitem
+                                      {
+                                          Id = subitem.Id,
+                                          Name = subitem.Name,
+                                          Column_values = subitem.Column_values
+                                      })
+                                      .ToList()
+                              })
+                          )
+                          .ToList();
+
+                        foreach (var i in itemList)
+                        {
+                            TimeSpan planned_ts = Convert.ToDateTime(i.Column_values[7].Text) - Convert.ToDateTime(i.Column_values[6].Text);
+                            var plannedDaysDuration = planned_ts.Days;
+
+                            TimeSpan actual_ts = i.Column_values[11].Text == "" || i.Column_values[10].Text == "" ? 
+                                TimeSpan.FromSeconds(2) : (Convert.ToDateTime(i.Column_values[11].Text) - Convert.ToDateTime(i.Column_values[10].Text));
+                            var actualDaysDuration = actual_ts.Days;
+
+                            foreach (var sub in i.Subitems)
+                            {
+                                if (i.Subitems.Count() > 0)
+                                {
+                                    dt.Add(new MondayDataViewModel
+                                    {
+                                        GroupId = i.GroupId,
+                                        GroupName = i.GroupTitle,
+                                        ItemId = i.Id,
+                                        ItemName = i.Name,
+                                        WorkGroup = i.Column_values[1].Text,
+                                        PIC = i.Column_values[2].Text,
+                                        SectionHead = i.Column_values[3].Text,
+                                        Contractor = i.Column_values[4].Text,
+                                        ContractorPIC = i.Column_values[5].Text,
+                                        PlannedStartDate = i.Column_values[6].Text,
+                                        PlannedEndDate = i.Column_values[7].Text,
+                                        PlannedDaysDuration = plannedDaysDuration.ToString(),
+                                        PlannedPercentageAccomplishment = i.Column_values[9].Text,
+                                        ActualStartDate = i.Column_values[10].Text,
+                                        ActualEndDate = i.Column_values[11].Text,
+                                        ActualDaysDuration = actualDaysDuration.ToString(),
+                                        ActualPercentageAccomplishment = i.Column_values[13].Text,
+                                        Variance = i.Column_values[14].Text,
+                                        ObservationRemarksStatus = i.Column_values[15].Text,
+                                        LastUpdated = i.Column_values[16].Text,
+                                        ProgressPicture = i.Column_values[17].Text,
+                                        ITPDocs = i.Column_values[18].Text,
+                                        JobCardNo = i.Column_values[19].Text,
+                                        Sub_ItemId = sub.Id,
+                                        Sub_ItemName = sub.Name,
+                                        Sub_PONo = sub.Column_values[0].Text,
+                                        Sub_DateSubmit = sub.Column_values[1].Text,
+                                        Sub_Id = sub.Column_values[2].Text,
+                                        Sub_IdName = sub.Column_values[3].Text,
+                                        Sub_MilestoneGroup = sub.Column_values[4].Text,
+                                        Sub_MilestoneName = sub.Column_values[5].Text,
+                                        Sub_TaskNo = sub.Column_values[6].Text,
+                                        Sub_PlannedDaysDuration = sub.Column_values[7].Text,
+                                        Sub_WeightedPercentage = sub.Column_values[8].Text,
+                                        Sub_PlannedStartDate = sub.Column_values[9].Text,
+                                        Sub_PlannedEndDate = sub.Column_values[10].Text,
+                                        Sub_TargetCompletionPercentage = sub.Column_values[11].Text,
+                                        Sub_TargetRelativeWeight = sub.Column_values[12].Text,
+                                        Sub_ActualStartDate = sub.Column_values[13].Text == "" ? "-" : sub.Column_values[13].Text,
+                                        Sub_ActualEndDate = sub.Column_values[14].Text == "" ? "-" : sub.Column_values[14].Text,
+                                        Sub_ActualCompletionPercentage = sub.Column_values[15].Text,
+                                        Sub_ActualRelativeWeight = sub.Column_values[16].Text,
+                                        Sub_PlannedStartValidation = sub.Column_values[17].Text,
+                                        Sub_ActualEndValidation = sub.Column_values[18].Text,
+                                        Sub_DPRDate = sub.Column_values[19].Text,
+                                        Sub_MainStatus = sub.Column_values[20].Text == "" ? "-" : sub.Column_values[20].Text,
+                                        Sub_InspectionRequirement = sub.Column_values[21].Text,
+                                        Sub_ITPStatus = sub.Column_values[22].Text,
+                                        Sub_ITPRemarks = sub.Column_values[23].Text,
+                                        Sub_ITPReference = sub.Column_values[24].Text,
+                                        Sub_ITPUploadSigned = sub.Column_values[25].Text,
+                                        Sub_MilestoneItem = sub.Column_values[26].Text,
+                                        Sub_MilestoneDetails = sub.Column_values[27].Text,
+                                        Sub_PaymentTermsCode = sub.Column_values[28].Text,
+                                        Sub_LastUpdated = sub.Column_values[29].Text,
+
+                                    });
+                                }
                                 
+                            }
                         }
-                    }
                     
+                    }
+                    else
+                    {
+                        throw new Exception($"Error from Monday.com API: {response.StatusCode}");
+                    }
                 }
-                else
-                {
-                    throw new Exception($"Error from Monday.com API: {response.StatusCode}");
-                }
-                //}
                 return dt;
             }
         }
@@ -347,6 +374,12 @@ namespace COCAAPI.Controllers
                 {
                     var items = exportItemData.POLine;
                     var dt = items.Where(e => e.No_Line.Contains("WK") && e.PRNo_Line != "").ToList();
+                    //poLine = dt
+                    //.Select(item => new Models.POLineViewModel
+                    //{
+                    //    PRNo = item.PRNo_Line,
+                    //    No = item.No_Line
+                    //}).ToList();
                     foreach (var item in dt)
                     {
                         poLine.Add(new Models.POLineViewModel()
@@ -363,6 +396,33 @@ namespace COCAAPI.Controllers
                 if (exportItemData.POHeader != null)
                 {
                     var items = exportItemData.POHeader;
+                    //var _poDetail = prNo.Join(items, pr => pr, item => item.PRNo, (pr, item) => new PODetail
+                    //{
+                    //    PRNo = item.PRNo,
+                    //    PONo = item.PONo,
+                    //    DateArchived = Convert.ToDateTime(item.DateArchived).ToString("MM/dd/yyyy"),
+                    //    BuyFromVendorNo = item.BuyFromVendorNo,
+                    //    BuyFromVendorName = item.BuyFromVendorName,
+                    //    POStatus = item.POStatus,
+                    //    POTotalLineAmount = item.POTotalLineAmount,
+                    //    POBillingTerms = item.POBillingTerms,
+                    //    NoOfProgressBilling = item.NoOfProgressBilling,
+                    //    PBMilestone = item.PBMilestone,
+                    //    VersionNo = item.VersionNo,
+                    //    PaymentType = item.PaymentType,
+                    //    Company = c,
+                    //    PlantNo = item.PlantNo,
+                    //    OrderDate = item.OrderDate,
+                    //    POPaymentTerms = item.POPaymentTermCode,
+                    //    POContractAmount = "",
+                    //    POAmendedAmount = "",
+                    //    RetentionPercent = "",
+                    //    RetentionAmount = "",
+                    //    RetentionReleaseDate = "",
+                    //    ProgressBillingPercent = ""
+                    //}).ToList();
+
+                    //poDetail.AddRange(_poDetail);
                     foreach (var i in prNo)
                     {
                         var item = items.LastOrDefault(e => e.PRNo == i);
