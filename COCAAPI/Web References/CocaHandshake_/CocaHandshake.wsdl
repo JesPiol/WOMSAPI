@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<definitions xmlns:tns="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA" targetNamespace="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA" xmlns="http://schemas.xmlsoap.org/wsdl/">
+<definitions xmlns:tns="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake" targetNamespace="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake" xmlns="http://schemas.xmlsoap.org/wsdl/">
   <types>
     <schema xmlns:tns="urn:microsoft-dynamics-nav/xmlports/x50001" elementFormDefault="qualified" targetNamespace="urn:microsoft-dynamics-nav/xmlports/x50001" xmlns="http://www.w3.org/2001/XMLSchema">
       <complexType name="PurchaseHeader">
@@ -47,6 +47,12 @@
       <element name="PostedPurchaseInvoiceXML" type="tns:PostedPurchaseInvoiceXML" />
     </schema>
     <schema xmlns:tns="urn:microsoft-dynamics-nav/xmlports/x50106" elementFormDefault="qualified" targetNamespace="urn:microsoft-dynamics-nav/xmlports/x50106" xmlns="http://www.w3.org/2001/XMLSchema">
+      <complexType name="PRLine">
+        <sequence>
+          <element minOccurs="1" maxOccurs="1" name="PRNo_Line" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="No_Line" type="string" />
+        </sequence>
+      </complexType>
       <complexType name="PRHeader">
         <sequence>
           <element minOccurs="1" maxOccurs="1" name="PRNo" type="string" />
@@ -70,23 +76,26 @@
           <element minOccurs="1" maxOccurs="1" name="ProjectInCharge" type="string" />
           <element minOccurs="1" maxOccurs="1" name="BudgetTotalAmount" type="string" />
           <element minOccurs="1" maxOccurs="1" name="PRReleasedDate" type="string" />
-        </sequence>
-      </complexType>
-      <complexType name="PRLine">
-        <sequence>
-          <element minOccurs="1" maxOccurs="1" name="PRNo_Line" type="string" />
-          <element minOccurs="1" maxOccurs="1" name="No_Line" type="string" />
+          <element minOccurs="1" maxOccurs="unbounded" name="PRLine" type="tns:PRLine" />
         </sequence>
       </complexType>
       <complexType name="XMLPortForCOCAPRHeader" mixed="true">
         <sequence>
           <element minOccurs="1" maxOccurs="unbounded" name="PRHeader" type="tns:PRHeader" />
-          <element minOccurs="1" maxOccurs="unbounded" name="PRLine" type="tns:PRLine" />
         </sequence>
       </complexType>
       <element name="XMLPortForCOCAPRHeader" type="tns:XMLPortForCOCAPRHeader" />
     </schema>
     <schema xmlns:tns="urn:microsoft-dynamics-nav/xmlports/x50107" elementFormDefault="qualified" targetNamespace="urn:microsoft-dynamics-nav/xmlports/x50107" xmlns="http://www.w3.org/2001/XMLSchema">
+      <complexType name="POLine">
+        <sequence>
+          <element minOccurs="1" maxOccurs="1" name="No_Line" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="PRNo_Line" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="Description" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="Description2" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="NewDescription" type="string" />
+        </sequence>
+      </complexType>
       <complexType name="POHeader">
         <sequence>
           <element minOccurs="1" maxOccurs="1" name="PRNo" type="string" />
@@ -98,32 +107,31 @@
           <element minOccurs="1" maxOccurs="1" name="POTotalLineAmount" type="string" />
           <element minOccurs="1" maxOccurs="1" name="POBillingTerms" type="string" />
           <element minOccurs="1" maxOccurs="1" default="0" name="NoOfProgressBilling" type="int" />
-          <element minOccurs="1" maxOccurs="1" name="PBMilestone" type="string" />
           <element minOccurs="1" maxOccurs="1" default="0" name="VersionNo" type="int" />
           <element minOccurs="1" maxOccurs="1" name="PaymentType" type="string" />
           <element minOccurs="1" maxOccurs="1" name="PlantNo" type="string" />
           <element minOccurs="1" maxOccurs="1" name="POPaymentTermCode" type="string" />
           <element minOccurs="1" maxOccurs="1" name="OrderDate" type="string" />
-        </sequence>
-      </complexType>
-      <complexType name="POLine">
-        <sequence>
-          <element minOccurs="1" maxOccurs="1" name="No_Line" type="string" />
-          <element minOccurs="1" maxOccurs="1" name="PRNo_Line" type="string" />
-          <element minOccurs="1" maxOccurs="1" name="Description" type="string" />
-          <element minOccurs="1" maxOccurs="1" name="Description2" type="string" />
-          <element minOccurs="1" maxOccurs="1" name="Description3" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="PBMilestone" type="string" />
+          <element minOccurs="1" maxOccurs="unbounded" name="POLine" type="tns:POLine" />
         </sequence>
       </complexType>
       <complexType name="XMLPortForCOCAPOHeader" mixed="true">
         <sequence>
           <element minOccurs="1" maxOccurs="unbounded" name="POHeader" type="tns:POHeader" />
-          <element minOccurs="1" maxOccurs="unbounded" name="POLine" type="tns:POLine" />
         </sequence>
       </complexType>
       <element name="XMLPortForCOCAPOHeader" type="tns:XMLPortForCOCAPOHeader" />
     </schema>
     <schema xmlns:tns="urn:microsoft-dynamics-nav/xmlports/x50109" elementFormDefault="qualified" targetNamespace="urn:microsoft-dynamics-nav/xmlports/x50109" xmlns="http://www.w3.org/2001/XMLSchema">
+      <complexType name="VendorLedgerEntry">
+        <sequence>
+          <element minOccurs="1" maxOccurs="1" name="DocumentNo" type="string" />
+          <element minOccurs="1" maxOccurs="1" default="0" name="EntryNo" type="int" />
+          <element minOccurs="1" maxOccurs="1" default="0" name="ClosedByEntryNo" type="int" />
+          <element minOccurs="1" maxOccurs="1" name="AppliesToId" type="string" />
+        </sequence>
+      </complexType>
       <complexType name="PIHeader">
         <sequence>
           <element minOccurs="1" maxOccurs="1" name="PPINNo" type="string" />
@@ -134,13 +142,7 @@
           <element minOccurs="1" maxOccurs="1" name="VendorInvoiceNo" type="string" />
           <element minOccurs="1" maxOccurs="1" name="AmountIncludingVAT" type="string" />
           <element minOccurs="1" maxOccurs="1" name="PostingDate" type="string" />
-        </sequence>
-      </complexType>
-      <complexType name="VendorLedgerEntry">
-        <sequence>
-          <element minOccurs="1" maxOccurs="1" name="DocumentNo" type="string" />
-          <element minOccurs="1" maxOccurs="1" default="0" name="ClosedByEntryNo" type="int" />
-          <element minOccurs="1" maxOccurs="1" name="AppliesToId" type="string" />
+          <element minOccurs="1" maxOccurs="unbounded" name="VendorLedgerEntry" type="tns:VendorLedgerEntry" />
         </sequence>
       </complexType>
       <complexType name="CheckLedgerEntry">
@@ -154,13 +156,26 @@
       <complexType name="XMLPortForCOCAPIHeader" mixed="true">
         <sequence>
           <element minOccurs="1" maxOccurs="unbounded" name="PIHeader" type="tns:PIHeader" />
-          <element minOccurs="1" maxOccurs="unbounded" name="VendorLedgerEntry" type="tns:VendorLedgerEntry" />
           <element minOccurs="1" maxOccurs="unbounded" name="CheckLedgerEntry" type="tns:CheckLedgerEntry" />
         </sequence>
       </complexType>
       <element name="XMLPortForCOCAPIHeader" type="tns:XMLPortForCOCAPIHeader" />
     </schema>
-    <schema elementFormDefault="qualified" targetNamespace="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA" xmlns="http://www.w3.org/2001/XMLSchema">
+    <schema xmlns:tns="urn:microsoft-dynamics-nav/xmlports/x50110" elementFormDefault="qualified" targetNamespace="urn:microsoft-dynamics-nav/xmlports/x50110" xmlns="http://www.w3.org/2001/XMLSchema">
+      <complexType name="DepartmentList">
+        <sequence>
+          <element minOccurs="1" maxOccurs="1" name="DepartmentCode" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="DepartmentName" type="string" />
+        </sequence>
+      </complexType>
+      <complexType name="XmlPortForCocaDept" mixed="true">
+        <sequence>
+          <element minOccurs="1" maxOccurs="unbounded" name="DepartmentList" type="tns:DepartmentList" />
+        </sequence>
+      </complexType>
+      <element name="XmlPortForCocaDept" type="tns:XmlPortForCocaDept" />
+    </schema>
+    <schema elementFormDefault="qualified" targetNamespace="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake" xmlns="http://www.w3.org/2001/XMLSchema">
       <element name="InsertIntoPRSummary">
         <complexType>
           <sequence>
@@ -382,6 +397,20 @@
           </sequence>
         </complexType>
       </element>
+      <element name="GetDeptForCOCA">
+        <complexType>
+          <sequence>
+            <element xmlns:q11="urn:microsoft-dynamics-nav/xmlports/x50110" minOccurs="1" maxOccurs="1" name="xMLPortForDeptCoca" type="q11:XmlPortForCocaDept" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="GetDeptForCOCA_Result">
+        <complexType>
+          <sequence>
+            <element xmlns:q12="urn:microsoft-dynamics-nav/xmlports/x50110" minOccurs="1" maxOccurs="1" name="xMLPortForDeptCoca" type="q12:XmlPortForCocaDept" />
+          </sequence>
+        </complexType>
+      </element>
     </schema>
   </types>
   <message name="InsertIntoPRSummary">
@@ -462,7 +491,13 @@
   <message name="GetPIForCOCA_Result">
     <part name="parameters" element="tns:GetPIForCOCA_Result" />
   </message>
-  <portType name="GetPODetailsCOCA_Port">
+  <message name="GetDeptForCOCA">
+    <part name="parameters" element="tns:GetDeptForCOCA" />
+  </message>
+  <message name="GetDeptForCOCA_Result">
+    <part name="parameters" element="tns:GetDeptForCOCA_Result" />
+  </message>
+  <portType name="CocaHandshake_Port">
     <operation name="InsertIntoPRSummary">
       <input name="InsertIntoPRSummary" message="tns:InsertIntoPRSummary" />
       <output name="InsertIntoPRSummary_Result" message="tns:InsertIntoPRSummary_Result" />
@@ -515,11 +550,15 @@
       <input name="GetPIForCOCA" message="tns:GetPIForCOCA" />
       <output name="GetPIForCOCA_Result" message="tns:GetPIForCOCA_Result" />
     </operation>
+    <operation name="GetDeptForCOCA">
+      <input name="GetDeptForCOCA" message="tns:GetDeptForCOCA" />
+      <output name="GetDeptForCOCA_Result" message="tns:GetDeptForCOCA_Result" />
+    </operation>
   </portType>
-  <binding name="GetPODetailsCOCA_Binding" type="tns:GetPODetailsCOCA_Port">
+  <binding name="CocaHandshake_Binding" type="tns:CocaHandshake_Port">
     <binding transport="http://schemas.xmlsoap.org/soap/http" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
     <operation name="InsertIntoPRSummary">
-      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA:InsertIntoPRSummary" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake:InsertIntoPRSummary" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       <input name="InsertIntoPRSummary">
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </input>
@@ -528,7 +567,7 @@
       </output>
     </operation>
     <operation name="UpdateIntoPRSummary">
-      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA:UpdateIntoPRSummary" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake:UpdateIntoPRSummary" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       <input name="UpdateIntoPRSummary">
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </input>
@@ -537,7 +576,7 @@
       </output>
     </operation>
     <operation name="InsertIntoCOCAInvoices">
-      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA:InsertIntoCOCAInvoices" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake:InsertIntoCOCAInvoices" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       <input name="InsertIntoCOCAInvoices">
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </input>
@@ -546,7 +585,7 @@
       </output>
     </operation>
     <operation name="UpdateIntoInvoiceChecks">
-      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA:UpdateIntoInvoiceChecks" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake:UpdateIntoInvoiceChecks" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       <input name="UpdateIntoInvoiceChecks">
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </input>
@@ -555,7 +594,7 @@
       </output>
     </operation>
     <operation name="CheckCOCADetails">
-      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA:CheckCOCADetails" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake:CheckCOCADetails" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       <input name="CheckCOCADetails">
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </input>
@@ -564,7 +603,7 @@
       </output>
     </operation>
     <operation name="GetConnectionString">
-      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA:GetConnectionString" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake:GetConnectionString" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       <input name="GetConnectionString">
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </input>
@@ -573,7 +612,7 @@
       </output>
     </operation>
     <operation name="CheckVendorDetails">
-      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA:CheckVendorDetails" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake:CheckVendorDetails" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       <input name="CheckVendorDetails">
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </input>
@@ -582,7 +621,7 @@
       </output>
     </operation>
     <operation name="InsertIntoEContracts">
-      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA:InsertIntoEContracts" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake:InsertIntoEContracts" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       <input name="InsertIntoEContracts">
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </input>
@@ -591,7 +630,7 @@
       </output>
     </operation>
     <operation name="ExposeNAVPO">
-      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA:ExposeNAVPO" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake:ExposeNAVPO" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       <input name="ExposeNAVPO">
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </input>
@@ -600,7 +639,7 @@
       </output>
     </operation>
     <operation name="ExposeNAVPOCOCA">
-      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA:ExposeNAVPOCOCA" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake:ExposeNAVPOCOCA" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       <input name="ExposeNAVPOCOCA">
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </input>
@@ -609,7 +648,7 @@
       </output>
     </operation>
     <operation name="GetPRForCOCA">
-      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA:GetPRForCOCA" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake:GetPRForCOCA" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       <input name="GetPRForCOCA">
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </input>
@@ -618,7 +657,7 @@
       </output>
     </operation>
     <operation name="GetPOForCOCA">
-      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA:GetPOForCOCA" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake:GetPOForCOCA" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       <input name="GetPOForCOCA">
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </input>
@@ -627,7 +666,7 @@
       </output>
     </operation>
     <operation name="GetPIForCOCA">
-      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA:GetPIForCOCA" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake:GetPIForCOCA" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       <input name="GetPIForCOCA">
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </input>
@@ -635,10 +674,19 @@
         <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
       </output>
     </operation>
+    <operation name="GetDeptForCOCA">
+      <operation soapAction="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake:GetDeptForCOCA" style="document" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input name="GetDeptForCOCA">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output name="GetDeptForCOCA_Result">
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
   </binding>
-  <service name="GetPODetailsCOCA">
-    <port name="GetPODetailsCOCA_Port" binding="tns:GetPODetailsCOCA_Binding">
-      <address location="http://thulium.smcdacon.com:7077/BC130_POWER_TEST/WS/Southwest%20Luzon%20Power%20Gen%20Corp/Codeunit/GetPODetailsCOCA" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+  <service name="CocaHandshake">
+    <port name="CocaHandshake_Port" binding="tns:CocaHandshake_Binding">
+      <address location="http://thulium.smcdacon.com:7077/BC130_POWER_TEST/WS/Southwest%20Luzon%20Power%20Gen%20Corp/Codeunit/CocaHandshake" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
     </port>
   </service>
 </definitions>

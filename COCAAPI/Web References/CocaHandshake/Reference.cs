@@ -55,6 +55,8 @@ namespace COCAAPI.CocaHandshake {
         
         private System.Threading.SendOrPostCallback GetPIForCOCAOperationCompleted;
         
+        private System.Threading.SendOrPostCallback GetDeptForCOCAOperationCompleted;
+        
         private bool useDefaultCredentialsSetExplicitly;
         
         /// <remarks/>
@@ -131,6 +133,9 @@ namespace COCAAPI.CocaHandshake {
         
         /// <remarks/>
         public event GetPIForCOCACompletedEventHandler GetPIForCOCACompleted;
+        
+        /// <remarks/>
+        public event GetDeptForCOCACompletedEventHandler GetDeptForCOCACompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/CocaHandshake:InsertIntoPRSummary", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake", ResponseElementName="InsertIntoPRSummary_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -626,6 +631,35 @@ namespace COCAAPI.CocaHandshake {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/CocaHandshake:GetDeptForCOCA", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake", ResponseElementName="GetDeptForCOCA_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void GetDeptForCOCA(ref XmlPortForCocaDept xMLPortForDeptCoca) {
+            object[] results = this.Invoke("GetDeptForCOCA", new object[] {
+                        xMLPortForDeptCoca});
+            xMLPortForDeptCoca = ((XmlPortForCocaDept)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetDeptForCOCAAsync(XmlPortForCocaDept xMLPortForDeptCoca) {
+            this.GetDeptForCOCAAsync(xMLPortForDeptCoca, null);
+        }
+        
+        /// <remarks/>
+        public void GetDeptForCOCAAsync(XmlPortForCocaDept xMLPortForDeptCoca, object userState) {
+            if ((this.GetDeptForCOCAOperationCompleted == null)) {
+                this.GetDeptForCOCAOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetDeptForCOCAOperationCompleted);
+            }
+            this.InvokeAsync("GetDeptForCOCA", new object[] {
+                        xMLPortForDeptCoca}, this.GetDeptForCOCAOperationCompleted, userState);
+        }
+        
+        private void OnGetDeptForCOCAOperationCompleted(object arg) {
+            if ((this.GetDeptForCOCACompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetDeptForCOCACompleted(this, new GetDeptForCOCACompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         public new void CancelAsync(object userState) {
             base.CancelAsync(userState);
         }
@@ -826,6 +860,74 @@ namespace COCAAPI.CocaHandshake {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:microsoft-dynamics-nav/xmlports/x50110")]
+    public partial class DepartmentList {
+        
+        private string departmentCodeField;
+        
+        private string departmentNameField;
+        
+        /// <remarks/>
+        public string DepartmentCode {
+            get {
+                return this.departmentCodeField;
+            }
+            set {
+                this.departmentCodeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string DepartmentName {
+            get {
+                return this.departmentNameField;
+            }
+            set {
+                this.departmentNameField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9032.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:microsoft-dynamics-nav/xmlports/x50110")]
+    public partial class XmlPortForCocaDept {
+        
+        private DepartmentList[] departmentListField;
+        
+        private string[] textField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("DepartmentList")]
+        public DepartmentList[] DepartmentList {
+            get {
+                return this.departmentListField;
+            }
+            set {
+                this.departmentListField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlTextAttribute()]
+        public string[] Text {
+            get {
+                return this.textField;
+            }
+            set {
+                this.textField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9032.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:microsoft-dynamics-nav/xmlports/x50109")]
     public partial class CheckLedgerEntry {
         
@@ -888,11 +990,14 @@ namespace COCAAPI.CocaHandshake {
         
         private string documentNoField;
         
+        private int entryNoField;
+        
         private int closedByEntryNoField;
         
         private string appliesToIdField;
         
         public VendorLedgerEntry() {
+            this.entryNoField = 0;
             this.closedByEntryNoField = 0;
         }
         
@@ -903,6 +1008,16 @@ namespace COCAAPI.CocaHandshake {
             }
             set {
                 this.documentNoField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public int EntryNo {
+            get {
+                return this.entryNoField;
+            }
+            set {
+                this.entryNoField = value;
             }
         }
         
@@ -950,6 +1065,8 @@ namespace COCAAPI.CocaHandshake {
         private string amountIncludingVATField;
         
         private string postingDateField;
+        
+        private VendorLedgerEntry[] vendorLedgerEntryField;
         
         /// <remarks/>
         public string PPINNo {
@@ -1030,6 +1147,17 @@ namespace COCAAPI.CocaHandshake {
                 this.postingDateField = value;
             }
         }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("VendorLedgerEntry")]
+        public VendorLedgerEntry[] VendorLedgerEntry {
+            get {
+                return this.vendorLedgerEntryField;
+            }
+            set {
+                this.vendorLedgerEntryField = value;
+            }
+        }
     }
     
     /// <remarks/>
@@ -1041,8 +1169,6 @@ namespace COCAAPI.CocaHandshake {
     public partial class XMLPortForCOCAPIHeader {
         
         private PIHeader[] pIHeaderField;
-        
-        private VendorLedgerEntry[] vendorLedgerEntryField;
         
         private CheckLedgerEntry[] checkLedgerEntryField;
         
@@ -1056,17 +1182,6 @@ namespace COCAAPI.CocaHandshake {
             }
             set {
                 this.pIHeaderField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("VendorLedgerEntry")]
-        public VendorLedgerEntry[] VendorLedgerEntry {
-            get {
-                return this.vendorLedgerEntryField;
-            }
-            set {
-                this.vendorLedgerEntryField = value;
             }
         }
         
@@ -1109,7 +1224,7 @@ namespace COCAAPI.CocaHandshake {
         
         private string description2Field;
         
-        private string pONo_LineField;
+        private string newDescriptionField;
         
         /// <remarks/>
         public string No_Line {
@@ -1152,12 +1267,12 @@ namespace COCAAPI.CocaHandshake {
         }
         
         /// <remarks/>
-        public string PONo_Line {
+        public string NewDescription {
             get {
-                return this.pONo_LineField;
+                return this.newDescriptionField;
             }
             set {
-                this.pONo_LineField = value;
+                this.newDescriptionField = value;
             }
         }
     }
@@ -1194,11 +1309,13 @@ namespace COCAAPI.CocaHandshake {
         
         private string plantNoField;
         
-        private string pBMilestoneField;
-        
         private string pOPaymentTermCodeField;
         
         private string orderDateField;
+        
+        private string pBMilestoneField;
+        
+        private POLine[] pOLineField;
         
         public POHeader() {
             this.noOfProgressBillingField = 0;
@@ -1326,16 +1443,6 @@ namespace COCAAPI.CocaHandshake {
         }
         
         /// <remarks/>
-        public string PBMilestone {
-            get {
-                return this.pBMilestoneField;
-            }
-            set {
-                this.pBMilestoneField = value;
-            }
-        }
-        
-        /// <remarks/>
         public string POPaymentTermCode {
             get {
                 return this.pOPaymentTermCodeField;
@@ -1354,6 +1461,27 @@ namespace COCAAPI.CocaHandshake {
                 this.orderDateField = value;
             }
         }
+        
+        /// <remarks/>
+        public string PBMilestone {
+            get {
+                return this.pBMilestoneField;
+            }
+            set {
+                this.pBMilestoneField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("POLine")]
+        public POLine[] POLine {
+            get {
+                return this.pOLineField;
+            }
+            set {
+                this.pOLineField = value;
+            }
+        }
     }
     
     /// <remarks/>
@@ -1366,8 +1494,6 @@ namespace COCAAPI.CocaHandshake {
         
         private POHeader[] pOHeaderField;
         
-        private POLine[] pOLineField;
-        
         private string[] textField;
         
         /// <remarks/>
@@ -1378,17 +1504,6 @@ namespace COCAAPI.CocaHandshake {
             }
             set {
                 this.pOHeaderField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("POLine")]
-        public POLine[] POLine {
-            get {
-                return this.pOLineField;
-            }
-            set {
-                this.pOLineField = value;
             }
         }
         
@@ -1486,6 +1601,8 @@ namespace COCAAPI.CocaHandshake {
         private string budgetTotalAmountField;
         
         private string pRReleasedDateField;
+        
+        private PRLine[] pRLineField;
         
         /// <remarks/>
         public string PRNo {
@@ -1696,6 +1813,17 @@ namespace COCAAPI.CocaHandshake {
                 this.pRReleasedDateField = value;
             }
         }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("PRLine")]
+        public PRLine[] PRLine {
+            get {
+                return this.pRLineField;
+            }
+            set {
+                this.pRLineField = value;
+            }
+        }
     }
     
     /// <remarks/>
@@ -1708,8 +1836,6 @@ namespace COCAAPI.CocaHandshake {
         
         private PRHeader[] pRHeaderField;
         
-        private PRLine[] pRLineField;
-        
         private string[] textField;
         
         /// <remarks/>
@@ -1720,17 +1846,6 @@ namespace COCAAPI.CocaHandshake {
             }
             set {
                 this.pRHeaderField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("PRLine")]
-        public PRLine[] PRLine {
-            get {
-                return this.pRLineField;
-            }
-            set {
-                this.pRLineField = value;
             }
         }
         
@@ -2245,6 +2360,32 @@ namespace COCAAPI.CocaHandshake {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((XMLPortForCOCAPIHeader)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9032.0")]
+    public delegate void GetDeptForCOCACompletedEventHandler(object sender, GetDeptForCOCACompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9032.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetDeptForCOCACompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetDeptForCOCACompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public XmlPortForCocaDept xMLPortForDeptCoca {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((XmlPortForCocaDept)(this.results[0]));
             }
         }
     }

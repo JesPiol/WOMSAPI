@@ -273,12 +273,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\MondayData.cs" />
+    <Compile Include="Models\MondayDataViewModel2.cs" />
     <Compile Include="Models\PIDetail.cs" />
     <Compile Include="Models\PODetail.cs" />
     <Compile Include="Models\PRDetail.cs" />
     <Compile Include="Models\MondayDataViewModel.cs" />
+    <Compile Include="Models\ToolsViewModel.cs" />
     <Compile Include="Models\ViolationViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -296,12 +299,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
-    <Compile Include="Web References\GetPIDetailsFromNAV\Reference.cs">
+    <Compile Include="Web References\CocaHandshake_\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
-    <Compile Include="Web References\GetPODetailsFromNAV\Reference.cs">
+    <Compile Include="Web References\GetPIDetailsFromNAV\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
@@ -389,32 +392,38 @@
     <Content Include="Web References\CocaHandshake\XMLPortForCOCAPRHeader.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </Content>
+    <Content Include="Web References\CocaHandshake\XmlPortForCocaDept.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <None Include="Web References\CocaHandshake_\CocaHandshake.wsdl" />
+    <Content Include="Web References\CocaHandshake_\ExportNAVPOIntoEContracts.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\CocaHandshake_\PostedPurchaseInvoiceXML.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <None Include="Web References\CocaHandshake_\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Web References\CocaHandshake_\XMLPortForCOCAPIHeader.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\CocaHandshake_\XMLPortForCOCAPOHeader.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\CocaHandshake_\XMLPortForCOCAPRHeader.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\CocaHandshake_\XmlPortForCocaDept.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
     <None Include="Web References\GetPIDetailsFromNAV\GetPIDetailsCOCA.wsdl" />
     <None Include="Web References\GetPIDetailsFromNAV\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <Content Include="Web References\GetPIDetailsFromNAV\XMLPortForCOCAPIHeader.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </Content>
-    <Content Include="Web References\GetPODetailsFromNAV\ExportNAVPOIntoEContracts.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </Content>
-    <None Include="Web References\GetPODetailsFromNAV\GetPODetailsCOCA.wsdl" />
-    <Content Include="Web References\GetPODetailsFromNAV\PostedPurchaseInvoiceXML.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </Content>
-    <None Include="Web References\GetPODetailsFromNAV\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <Content Include="Web References\GetPODetailsFromNAV\XMLPortForCOCAPOHeader.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </Content>
-    <Content Include="Web References\GetPODetailsFromNAV\XMLPortForCOCAPIHeader.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </Content>
-    <Content Include="Web References\GetPODetailsFromNAV\XMLPortForCOCAPRHeader.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </Content>
     <None Include="Web References\GetPRDetailsFromNAV\GetPRDetailsCOCA.wsdl" />
@@ -493,16 +502,16 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>COCAAPI_GetPRDetailsFromNAV_GetPRDetailsCOCA</CachedSettingsPropName>
     </WebReferenceUrl>
-    <WebReferenceUrl Include="http://thulium.smcdacon.com:7077/BC130_POWER_TEST/WS/Southwest%2520Luzon%2520Power%2520Gen%2520Corp/Codeunit/GetPODetailsCOCA">
+    <WebReferenceUrl Include="http://thulium.smcdacon.com:7077/BC130_POWER_TEST/WS/Southwest%2520Luzon%2520Power%2520Gen%2520Corp/Codeunit/CocaHandshake">
       <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\GetPODetailsFromNAV\</RelPath>
-      <UpdateFromURL>http://thulium.smcdacon.com:7077/BC130_POWER_TEST/WS/Southwest%2520Luzon%2520Power%2520Gen%2520Corp/Codeunit/GetPODetailsCOCA</UpdateFromURL>
+      <RelPath>Web References\CocaHandshake_\</RelPath>
+      <UpdateFromURL>http://thulium.smcdacon.com:7077/BC130_POWER_TEST/WS/Southwest%2520Luzon%2520Power%2520Gen%2520Corp/Codeunit/CocaHandshake</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>COCAAPI_GetPODetailsFromNAV_GetPODetailsCOCA</CachedSettingsPropName>
+      <CachedSettingsPropName>COCAAPI_CocaHandshake__CocaHandshake</CachedSettingsPropName>
     </WebReferenceUrl>
     <WebReferenceUrl Include="http://vela.semcalaca.com:7077/BC2019_CPC/WS/Southwest%2520Luzon%2520Power%2520Gen%2520Corp/Codeunit/CocaHandshake">
       <UrlBehavior>Dynamic</UrlBehavior>

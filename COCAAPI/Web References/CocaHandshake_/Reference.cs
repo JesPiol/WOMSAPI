@@ -13,7 +13,7 @@
 // 
 #pragma warning disable 1591
 
-namespace COCAAPI.GetPODetailsFromNAV {
+namespace COCAAPI.CocaHandshake_ {
     using System;
     using System.Web.Services;
     using System.Diagnostics;
@@ -26,8 +26,8 @@ namespace COCAAPI.GetPODetailsFromNAV {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9032.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Web.Services.WebServiceBindingAttribute(Name="GetPODetailsCOCA_Binding", Namespace="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA")]
-    public partial class GetPODetailsCOCA : System.Web.Services.Protocols.SoapHttpClientProtocol {
+    [System.Web.Services.WebServiceBindingAttribute(Name="CocaHandshake_Binding", Namespace="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake")]
+    public partial class CocaHandshake : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
         private System.Threading.SendOrPostCallback InsertIntoPRSummaryOperationCompleted;
         
@@ -55,11 +55,13 @@ namespace COCAAPI.GetPODetailsFromNAV {
         
         private System.Threading.SendOrPostCallback GetPIForCOCAOperationCompleted;
         
+        private System.Threading.SendOrPostCallback GetDeptForCOCAOperationCompleted;
+        
         private bool useDefaultCredentialsSetExplicitly;
         
         /// <remarks/>
-        public GetPODetailsCOCA() {
-            this.Url = global::COCAAPI.Properties.Settings.Default.COCAAPI_GetPODetailsFromNAV_GetPODetailsCOCA;
+        public CocaHandshake() {
+            this.Url = global::COCAAPI.Properties.Settings.Default.COCAAPI_CocaHandshake__CocaHandshake;
             if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
                 this.UseDefaultCredentials = true;
                 this.useDefaultCredentialsSetExplicitly = false;
@@ -133,7 +135,10 @@ namespace COCAAPI.GetPODetailsFromNAV {
         public event GetPIForCOCACompletedEventHandler GetPIForCOCACompleted;
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA:InsertIntoPRSummary", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA", ResponseElementName="InsertIntoPRSummary_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public event GetDeptForCOCACompletedEventHandler GetDeptForCOCACompleted;
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/CocaHandshake:InsertIntoPRSummary", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake", ResponseElementName="InsertIntoPRSummary_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public void InsertIntoPRSummary(string pRNo, string pRDate, string department, string pRReceivedDate, string pRReleasedDate, string plantNo, string intendedFor, string phaseOfWork, string workDescription, string status, int company, string purchaser, string bCode, string bControlNo, string priority) {
             this.Invoke("InsertIntoPRSummary", new object[] {
                         pRNo,
@@ -205,7 +210,7 @@ namespace COCAAPI.GetPODetailsFromNAV {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA:UpdateIntoPRSummary", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA", ResponseElementName="UpdateIntoPRSummary_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/CocaHandshake:UpdateIntoPRSummary", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake", ResponseElementName="UpdateIntoPRSummary_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public void UpdateIntoPRSummary(string documentNo, string documentDate, string vendor, string pRNo, string purchaser, decimal amount, string payType, string promiseDate, string eReceiptDate) {
             this.Invoke("UpdateIntoPRSummary", new object[] {
                         documentNo,
@@ -249,7 +254,7 @@ namespace COCAAPI.GetPODetailsFromNAV {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA:InsertIntoCOCAInvoices", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA", ResponseElementName="InsertIntoCOCAInvoices_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/CocaHandshake:InsertIntoCOCAInvoices", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake", ResponseElementName="InsertIntoCOCAInvoices_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public void InsertIntoCOCAInvoices(string pPINNo, string vINo, string terms, string dueDate, string particulars, decimal amount, string postingDate, decimal percent, string pONo, string pPINDate, int company) {
             this.Invoke("InsertIntoCOCAInvoices", new object[] {
                         pPINNo,
@@ -297,7 +302,7 @@ namespace COCAAPI.GetPODetailsFromNAV {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA:UpdateIntoInvoiceChecks", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA", ResponseElementName="UpdateIntoInvoiceChecks_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/CocaHandshake:UpdateIntoInvoiceChecks", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake", ResponseElementName="UpdateIntoInvoiceChecks_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public void UpdateIntoInvoiceChecks(string checkNo, string checkDate, string aPVNo) {
             this.Invoke("UpdateIntoInvoiceChecks", new object[] {
                         checkNo,
@@ -329,7 +334,7 @@ namespace COCAAPI.GetPODetailsFromNAV {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA:CheckCOCADetails", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA", ResponseElementName="CheckCOCADetails_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/CocaHandshake:CheckCOCADetails", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake", ResponseElementName="CheckCOCADetails_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public void CheckCOCADetails(string documentNo, string pRNo) {
             this.Invoke("CheckCOCADetails", new object[] {
                         documentNo,
@@ -359,7 +364,7 @@ namespace COCAAPI.GetPODetailsFromNAV {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA:GetConnectionString", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA", ResponseElementName="GetConnectionString_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/CocaHandshake:GetConnectionString", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake", ResponseElementName="GetConnectionString_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         [return: System.Xml.Serialization.XmlElementAttribute("return_value")]
         public string GetConnectionString(string serverName, string databaseName, string userID, string password) {
             object[] results = this.Invoke("GetConnectionString", new object[] {
@@ -395,7 +400,7 @@ namespace COCAAPI.GetPODetailsFromNAV {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA:CheckVendorDetails", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA", ResponseElementName="CheckVendorDetails_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/CocaHandshake:CheckVendorDetails", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake", ResponseElementName="CheckVendorDetails_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public void CheckVendorDetails(string contractNo, string vendorNo, string pONo) {
             this.Invoke("CheckVendorDetails", new object[] {
                         contractNo,
@@ -427,7 +432,7 @@ namespace COCAAPI.GetPODetailsFromNAV {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA:InsertIntoEContracts", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA", ResponseElementName="InsertIntoEContracts_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/CocaHandshake:InsertIntoEContracts", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake", ResponseElementName="InsertIntoEContracts_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public void InsertIntoEContracts(string pONo, [System.Xml.Serialization.XmlElementAttribute(DataType="date")] System.DateTime pODate, string pRNo, [System.Xml.Serialization.XmlElementAttribute(DataType="date")] System.DateTime pRDate, string vendor, decimal amount, string purchaser, string plant, int company) {
             this.Invoke("InsertIntoEContracts", new object[] {
                         pONo,
@@ -471,7 +476,7 @@ namespace COCAAPI.GetPODetailsFromNAV {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA:ExposeNAVPO", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA", ResponseElementName="ExposeNAVPO_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/CocaHandshake:ExposeNAVPO", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake", ResponseElementName="ExposeNAVPO_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public void ExposeNAVPO(ref ExportNAVPOIntoEContracts xML, string pONo, int selectedCompany) {
             object[] results = this.Invoke("ExposeNAVPO", new object[] {
                         xML,
@@ -504,7 +509,7 @@ namespace COCAAPI.GetPODetailsFromNAV {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA:ExposeNAVPOCOCA", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA", ResponseElementName="ExposeNAVPOCOCA_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/CocaHandshake:ExposeNAVPOCOCA", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake", ResponseElementName="ExposeNAVPOCOCA_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public void ExposeNAVPOCOCA(ref PostedPurchaseInvoiceXML xML, string pONo, int selectedCompany, string transType) {
             object[] results = this.Invoke("ExposeNAVPOCOCA", new object[] {
                         xML,
@@ -539,7 +544,7 @@ namespace COCAAPI.GetPODetailsFromNAV {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA:GetPRForCOCA", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA", ResponseElementName="GetPRForCOCA_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/CocaHandshake:GetPRForCOCA", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake", ResponseElementName="GetPRForCOCA_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public void GetPRForCOCA(ref XMLPortForCOCAPRHeader xMLCOCAPRHeader) {
             object[] results = this.Invoke("GetPRForCOCA", new object[] {
                         xMLCOCAPRHeader});
@@ -568,7 +573,7 @@ namespace COCAAPI.GetPODetailsFromNAV {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA:GetPOForCOCA", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA", ResponseElementName="GetPOForCOCA_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/CocaHandshake:GetPOForCOCA", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake", ResponseElementName="GetPOForCOCA_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public void GetPOForCOCA(ref XMLPortForCOCAPOHeader xMLCOCAPOHeader) {
             object[] results = this.Invoke("GetPOForCOCA", new object[] {
                         xMLCOCAPOHeader});
@@ -597,7 +602,7 @@ namespace COCAAPI.GetPODetailsFromNAV {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA:GetPIForCOCA", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA", ResponseElementName="GetPIForCOCA_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/GetPODetailsCOCA", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/CocaHandshake:GetPIForCOCA", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake", ResponseElementName="GetPIForCOCA_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public void GetPIForCOCA(ref XMLPortForCOCAPIHeader xMLCOCAPIHeader) {
             object[] results = this.Invoke("GetPIForCOCA", new object[] {
                         xMLCOCAPIHeader});
@@ -622,6 +627,35 @@ namespace COCAAPI.GetPODetailsFromNAV {
             if ((this.GetPIForCOCACompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.GetPIForCOCACompleted(this, new GetPIForCOCACompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/CocaHandshake:GetDeptForCOCA", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake", ResponseElementName="GetDeptForCOCA_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void GetDeptForCOCA(ref XmlPortForCocaDept xMLPortForDeptCoca) {
+            object[] results = this.Invoke("GetDeptForCOCA", new object[] {
+                        xMLPortForDeptCoca});
+            xMLPortForDeptCoca = ((XmlPortForCocaDept)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetDeptForCOCAAsync(XmlPortForCocaDept xMLPortForDeptCoca) {
+            this.GetDeptForCOCAAsync(xMLPortForDeptCoca, null);
+        }
+        
+        /// <remarks/>
+        public void GetDeptForCOCAAsync(XmlPortForCocaDept xMLPortForDeptCoca, object userState) {
+            if ((this.GetDeptForCOCAOperationCompleted == null)) {
+                this.GetDeptForCOCAOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetDeptForCOCAOperationCompleted);
+            }
+            this.InvokeAsync("GetDeptForCOCA", new object[] {
+                        xMLPortForDeptCoca}, this.GetDeptForCOCAOperationCompleted, userState);
+        }
+        
+        private void OnGetDeptForCOCAOperationCompleted(object arg) {
+            if ((this.GetDeptForCOCACompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetDeptForCOCACompleted(this, new GetDeptForCOCACompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -826,6 +860,74 @@ namespace COCAAPI.GetPODetailsFromNAV {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:microsoft-dynamics-nav/xmlports/x50110")]
+    public partial class DepartmentList {
+        
+        private string departmentCodeField;
+        
+        private string departmentNameField;
+        
+        /// <remarks/>
+        public string DepartmentCode {
+            get {
+                return this.departmentCodeField;
+            }
+            set {
+                this.departmentCodeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string DepartmentName {
+            get {
+                return this.departmentNameField;
+            }
+            set {
+                this.departmentNameField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9032.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:microsoft-dynamics-nav/xmlports/x50110")]
+    public partial class XmlPortForCocaDept {
+        
+        private DepartmentList[] departmentListField;
+        
+        private string[] textField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("DepartmentList")]
+        public DepartmentList[] DepartmentList {
+            get {
+                return this.departmentListField;
+            }
+            set {
+                this.departmentListField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlTextAttribute()]
+        public string[] Text {
+            get {
+                return this.textField;
+            }
+            set {
+                this.textField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9032.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:microsoft-dynamics-nav/xmlports/x50109")]
     public partial class CheckLedgerEntry {
         
@@ -888,11 +990,14 @@ namespace COCAAPI.GetPODetailsFromNAV {
         
         private string documentNoField;
         
+        private int entryNoField;
+        
         private int closedByEntryNoField;
         
         private string appliesToIdField;
         
         public VendorLedgerEntry() {
+            this.entryNoField = 0;
             this.closedByEntryNoField = 0;
         }
         
@@ -903,6 +1008,16 @@ namespace COCAAPI.GetPODetailsFromNAV {
             }
             set {
                 this.documentNoField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public int EntryNo {
+            get {
+                return this.entryNoField;
+            }
+            set {
+                this.entryNoField = value;
             }
         }
         
@@ -950,6 +1065,8 @@ namespace COCAAPI.GetPODetailsFromNAV {
         private string amountIncludingVATField;
         
         private string postingDateField;
+        
+        private VendorLedgerEntry[] vendorLedgerEntryField;
         
         /// <remarks/>
         public string PPINNo {
@@ -1030,6 +1147,17 @@ namespace COCAAPI.GetPODetailsFromNAV {
                 this.postingDateField = value;
             }
         }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("VendorLedgerEntry")]
+        public VendorLedgerEntry[] VendorLedgerEntry {
+            get {
+                return this.vendorLedgerEntryField;
+            }
+            set {
+                this.vendorLedgerEntryField = value;
+            }
+        }
     }
     
     /// <remarks/>
@@ -1041,8 +1169,6 @@ namespace COCAAPI.GetPODetailsFromNAV {
     public partial class XMLPortForCOCAPIHeader {
         
         private PIHeader[] pIHeaderField;
-        
-        private VendorLedgerEntry[] vendorLedgerEntryField;
         
         private CheckLedgerEntry[] checkLedgerEntryField;
         
@@ -1056,17 +1182,6 @@ namespace COCAAPI.GetPODetailsFromNAV {
             }
             set {
                 this.pIHeaderField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("VendorLedgerEntry")]
-        public VendorLedgerEntry[] VendorLedgerEntry {
-            get {
-                return this.vendorLedgerEntryField;
-            }
-            set {
-                this.vendorLedgerEntryField = value;
             }
         }
         
@@ -1109,7 +1224,7 @@ namespace COCAAPI.GetPODetailsFromNAV {
         
         private string description2Field;
         
-        private string description3Field;
+        private string newDescriptionField;
         
         /// <remarks/>
         public string No_Line {
@@ -1152,12 +1267,12 @@ namespace COCAAPI.GetPODetailsFromNAV {
         }
         
         /// <remarks/>
-        public string Description3 {
+        public string NewDescription {
             get {
-                return this.description3Field;
+                return this.newDescriptionField;
             }
             set {
-                this.description3Field = value;
+                this.newDescriptionField = value;
             }
         }
     }
@@ -1188,8 +1303,6 @@ namespace COCAAPI.GetPODetailsFromNAV {
         
         private int noOfProgressBillingField;
         
-        private string pBMilestoneField;
-        
         private int versionNoField;
         
         private string paymentTypeField;
@@ -1199,6 +1312,10 @@ namespace COCAAPI.GetPODetailsFromNAV {
         private string pOPaymentTermCodeField;
         
         private string orderDateField;
+        
+        private string pBMilestoneField;
+        
+        private POLine[] pOLineField;
         
         public POHeader() {
             this.noOfProgressBillingField = 0;
@@ -1296,16 +1413,6 @@ namespace COCAAPI.GetPODetailsFromNAV {
         }
         
         /// <remarks/>
-        public string PBMilestone {
-            get {
-                return this.pBMilestoneField;
-            }
-            set {
-                this.pBMilestoneField = value;
-            }
-        }
-        
-        /// <remarks/>
         public int VersionNo {
             get {
                 return this.versionNoField;
@@ -1354,6 +1461,27 @@ namespace COCAAPI.GetPODetailsFromNAV {
                 this.orderDateField = value;
             }
         }
+        
+        /// <remarks/>
+        public string PBMilestone {
+            get {
+                return this.pBMilestoneField;
+            }
+            set {
+                this.pBMilestoneField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("POLine")]
+        public POLine[] POLine {
+            get {
+                return this.pOLineField;
+            }
+            set {
+                this.pOLineField = value;
+            }
+        }
     }
     
     /// <remarks/>
@@ -1366,8 +1494,6 @@ namespace COCAAPI.GetPODetailsFromNAV {
         
         private POHeader[] pOHeaderField;
         
-        private POLine[] pOLineField;
-        
         private string[] textField;
         
         /// <remarks/>
@@ -1378,17 +1504,6 @@ namespace COCAAPI.GetPODetailsFromNAV {
             }
             set {
                 this.pOHeaderField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("POLine")]
-        public POLine[] POLine {
-            get {
-                return this.pOLineField;
-            }
-            set {
-                this.pOLineField = value;
             }
         }
         
@@ -1486,6 +1601,8 @@ namespace COCAAPI.GetPODetailsFromNAV {
         private string budgetTotalAmountField;
         
         private string pRReleasedDateField;
+        
+        private PRLine[] pRLineField;
         
         /// <remarks/>
         public string PRNo {
@@ -1696,6 +1813,17 @@ namespace COCAAPI.GetPODetailsFromNAV {
                 this.pRReleasedDateField = value;
             }
         }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("PRLine")]
+        public PRLine[] PRLine {
+            get {
+                return this.pRLineField;
+            }
+            set {
+                this.pRLineField = value;
+            }
+        }
     }
     
     /// <remarks/>
@@ -1708,8 +1836,6 @@ namespace COCAAPI.GetPODetailsFromNAV {
         
         private PRHeader[] pRHeaderField;
         
-        private PRLine[] pRLineField;
-        
         private string[] textField;
         
         /// <remarks/>
@@ -1720,17 +1846,6 @@ namespace COCAAPI.GetPODetailsFromNAV {
             }
             set {
                 this.pRHeaderField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("PRLine")]
-        public PRLine[] PRLine {
-            get {
-                return this.pRLineField;
-            }
-            set {
-                this.pRLineField = value;
             }
         }
         
@@ -2090,6 +2205,32 @@ namespace COCAAPI.GetPODetailsFromNAV {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((XMLPortForCOCAPIHeader)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9032.0")]
+    public delegate void GetDeptForCOCACompletedEventHandler(object sender, GetDeptForCOCACompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9032.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetDeptForCOCACompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetDeptForCOCACompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public XmlPortForCocaDept xMLPortForDeptCoca {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((XmlPortForCocaDept)(this.results[0]));
             }
         }
     }

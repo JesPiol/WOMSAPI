@@ -9,7 +9,6 @@ namespace COCAAPI.Models
     {
         public string Id { get; set; }
         public string Text { get; set; }
-        public int Value { get; set; }
     }
     
 
@@ -18,9 +17,10 @@ namespace COCAAPI.Models
         public string Id { get; set; }
         public string Name { get; set; }
         public List<ColumnValue> Column_values { get; set; }
-        public List<Subitem> Subitems { get; set; }
-        public string GroupId { get; set; }
-        public string GroupTitle { get; set; }
+        //public List<Subitem> Subitems { get; set; }
+        public Group Group { get; set; }
+        //public string GroupId { get; set; }
+        //public string GroupTitle { get; set; }
     }
 
     public class Subitem
@@ -42,12 +42,11 @@ namespace COCAAPI.Models
         public ItemsPage Items_page { get; set; }
     }
 
-    //public class Group
-    //{
-    //    public string Id { get; set; }
-    //    public string Title { get; set; }
-    //    public ItemsPage Items_page { get; set; }
-    //}
+    public class Group
+    {
+        public string Id { get; set; }
+        public string Title { get; set; }
+    }
 
     public class Data
     {

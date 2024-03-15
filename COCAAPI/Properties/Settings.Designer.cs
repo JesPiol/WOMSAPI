@@ -37,17 +37,6 @@ namespace COCAAPI.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://thulium.smcdacon.com:7077/BC130_POWER_TEST/WS/Southwest%20Luzon%20Power%20" +
-            "Gen%20Corp/Codeunit/GetPODetailsCOCA")]
-        public string COCAAPI_GetPODetailsFromNAV_GetPODetailsCOCA {
-            get {
-                return ((string)(this["COCAAPI_GetPODetailsFromNAV_GetPODetailsCOCA"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
         [global::System.Configuration.DefaultSettingValueAttribute("http://thulium.smcdacon.com:7077/BC130_POWER_TEST/WS/Sem%20Calaca%20Power%20Corpo" +
             "ration/Codeunit/GetPIDetailsCOCA")]
         public string COCAAPI_GetPIDetailsFromNAV_GetPIDetailsCOCA {
@@ -64,6 +53,17 @@ namespace COCAAPI.Properties {
         public string COCAAPI_CocaHandshake_CocaHandshake {
             get {
                 return ((string)(this["COCAAPI_CocaHandshake_CocaHandshake"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://thulium.smcdacon.com:7077/BC130_POWER_TEST/WS/Southwest%20Luzon%20Power%20" +
+            "Gen%20Corp/Codeunit/CocaHandshake")]
+        public string COCAAPI_CocaHandshake__CocaHandshake {
+            get {
+                return ((string)(this["COCAAPI_CocaHandshake__CocaHandshake"]));
             }
         }
     }
