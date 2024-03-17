@@ -27,6 +27,9 @@ namespace COCAAPI.Controllers
         private const string sc = "http://VELA.semcalaca.com:7077/BC2019_CPC/WS/Sem%20Calaca%20Power%20Corporation/Codeunit/CocaHandshake";
         private const string sl = "http://VELA.semcalaca.com:7077/BC2019_CPC/WS/Southwest%20Luzon%20Power%20Gen%20Corp/Codeunit/CocaHandshake";
 
+        private const string sc_test = "http://thulium.smcdacon.com:7077/BC130_POWER_TEST/WS/Sem%20Calaca%20Power%20Corporation/Codeunit/CocaHandshake";
+        private const string sl_test = "http://thulium.smcdacon.com:7077/BC130_POWER_TEST/WS/Southwest%20Luzon%20Power%20Gen%20Corp/Codeunit/CocaHandshake";
+
         public List<MondayData> GetBoardIds()
         {
             var conString = "Database=COCAWEBDB;Server=192.168.70.231;user=ict;password=ict@ictdept";
@@ -121,9 +124,34 @@ namespace COCAAPI.Controllers
 
                     foreach (var i in itemList)
                     {
-                        var weightPercentage = Convert.ToDecimal(i.Column_values[8].Text) / 78;
                         try
                         {
+                            if(i.Group.Title == "Tan Delta_Comprehensive Electrical Test of Power Transformers" && i.Name == "Mobilization")
+                            {
+                                var test = i;
+                            }
+                            var weightPercentage = i.Column_values[8].Text == "" || i.Column_values[8].Text == null ? 0 : (Convert.ToDecimal(i.Column_values[8].Text) / 78);
+
+                            // for target % completion
+                            DateTime dprDate = i.Column_values[20].Text == "" || i.Column_values[20].Text == null ? Convert.ToDateTime("01/01/0001") : Convert.ToDateTime(i.Column_values[20].Text);
+                            DateTime plannedStartDate = i.Column_values[10].Text == "" || i.Column_values[10].Text == null ? Convert.ToDateTime("01/01/0001") : Convert.ToDateTime(i.Column_values[10].Text);
+                            DateTime plannedEndDate = i.Column_values[11].Text == "" || i.Column_values[11].Text == null ? Convert.ToDateTime("01/01/0001") : Convert.ToDateTime(i.Column_values[11].Text);
+
+                            TimeSpan ts1 = dprDate - plannedStartDate;
+                            var dateDiff_ts1 = ts1.Days + 1;
+
+                            TimeSpan ts2 = plannedEndDate - plannedStartDate;
+                            var dateDiff_ts2 = ts2.Days + 1;
+
+                            var targetPercentCompletion = dprDate < plannedStartDate ? 0 : (dprDate > plannedEndDate ? 1 : (dateDiff_ts1 / dateDiff_ts2)) * 100;
+
+                            // for Target Relative Weight
+                            var targetRelativeWeight = Math.Round((weightPercentage * targetPercentCompletion), 2);
+
+                            // for actual Relative Weight
+                            var actualRelativeWeight = (Convert.ToDecimal(i.Column_values[16].Text) * weightPercentage) * 100;
+
+                        
                             dt.Add(new MondayDataViewModel2
                             {
                                 GroupName = i.Group.Title,
@@ -139,7 +167,8 @@ namespace COCAAPI.Controllers
                                 WeightedPercentage = i.Column_values[9].Text == "" ? weightPercentage.ToString() : i.Column_values[9].Text,
                                 PlannedStartDate = i.Column_values[10].Text,
                                 PlannedEndDate = i.Column_values[11].Text,
-                                TargetPercentCompletion = i.Column_values[12].Text,
+                                //TargetPercentCompletion = i.Column_values[12].Text,
+                                TargetPercentCompletion = targetPercentCompletion.ToString(),
                                 TargetRelativeWeight = i.Column_values[13].Text,
                                 ActualStartDate = i.Column_values[14].Text,
                                 ActualEndDate = i.Column_values[15].Text,
@@ -310,9 +339,7 @@ namespace COCAAPI.Controllers
             string[] comp = { "SCPC", "SLPGC" };
 
             /* Decrypt sensitive parameters */
-
-            //string sc1 = "http://thulium.smcdacon.com:7077/BC130_POWER_TEST/WS/Sem%20Calaca%20Power%20Corporation/Codeunit/CocaHandshake";
-            //string sl1 = "http://thulium.smcdacon.com:7077/BC130_POWER_TEST/WS/Southwest%20Luzon%20Power%20Gen%20Corp/Codeunit/CocaHandshake";
+            
             var username = Properties.Resources.NavSemiraraUname;
             var password = Properties.Resources.NavSemiraraPass;
             List<PRDetail> prDetail = new List<PRDetail>();
@@ -322,25 +349,21 @@ namespace COCAAPI.Controllers
             foreach(var c in comp)
             {
                 if (c == "SCPC")
+                    //url_link = sc_test;
                     url_link = sc;
                 else
+                    //url_link = sl_test;
                     url_link = sl;
 
 
-                /* Get Code Unit Properties */
                 CocaHandshake.CocaHandshake codeunit_service = new CocaHandshake.CocaHandshake();
-                //CocaHandshake_.CocaHandshake codeunit_service = new CocaHandshake_.CocaHandshake();
-                NetworkCredential netCred; Uri uri; ICredentials credentials;
+                //CocaHandshake_.CocaHandshake codeunit_service = new CocaHandshake_.CocaHandshake(); // test server
                 codeunit_service.Url = url_link;
                 codeunit_service.Timeout = 1800000;
-                netCred = new NetworkCredential(@"" + username, password);
-                uri = new Uri(codeunit_service.Url);
-                credentials = netCred.GetCredential(uri, "Basic");
-                codeunit_service.Credentials = credentials;
+                codeunit_service.Credentials = new NetworkCredential(username, password);
                 codeunit_service.PreAuthenticate = true;
-
-                //CocaHandshake_.XMLPortForCOCAPRHeader exportItemData = new CocaHandshake_.XMLPortForCOCAPRHeader();
                 CocaHandshake.XMLPortForCOCAPRHeader exportItemData = new CocaHandshake.XMLPortForCOCAPRHeader();
+                //CocaHandshake_.XMLPortForCOCAPRHeader exportItemData = new CocaHandshake_.XMLPortForCOCAPRHeader(); // test server
                 codeunit_service.GetPRForCOCA(ref exportItemData);
 
                 // Get PR No. with WK item no
@@ -407,8 +430,6 @@ namespace COCAAPI.Controllers
 
 
             /* Decrypt sensitive parameters */
-            string sc1 = "http://thulium.smcdacon.com:7077/BC130_POWER_TEST/WS/Sem%20Calaca%20Power%20Corporation/Codeunit/CocaHandshake";
-            string sl1 = "http://thulium.smcdacon.com:7077/BC130_POWER_TEST/WS/Southwest%20Luzon%20Power%20Gen%20Corp/Codeunit/CocaHandshake";
             var username = Properties.Resources.NavSemiraraUname;
             var password = Properties.Resources.NavSemiraraPass;
             List<Models.PODetail> poDetail = new List<Models.PODetail>();
@@ -418,25 +439,20 @@ namespace COCAAPI.Controllers
             foreach (var c in comp)
             {
                 if (c == "SCPC")
-                    url_link = sc1;
+                    //url_link = sc_test;
+                    url_link = sc;
                 else
-                    url_link = sl1;
-
-                // Instantiate CocaHandshake service
-                //CocaHandshake.CocaHandshake codeunit_service = new CocaHandshake.CocaHandshake();
-                CocaHandshake_.CocaHandshake codeunit_service = new CocaHandshake_.CocaHandshake(); // test server
-
-                // Set URL and Timeout
+                    //url_link = sl_test;
+                    url_link = sl;
+                
+                CocaHandshake.CocaHandshake codeunit_service = new CocaHandshake.CocaHandshake();
+                //CocaHandshake_.CocaHandshake codeunit_service = new CocaHandshake_.CocaHandshake(); // test server
                 codeunit_service.Url = url_link;
                 codeunit_service.Timeout = 1800000;
-
-                // Set credentials
                 codeunit_service.Credentials = new NetworkCredential(username, password);
                 codeunit_service.PreAuthenticate = true;
-
-                // Call the method directly
-                //CocaHandshake.XMLPortForCOCAPOHeader exportItemData = new CocaHandshake.XMLPortForCOCAPOHeader();
-                CocaHandshake_.XMLPortForCOCAPOHeader exportItemData = new CocaHandshake_.XMLPortForCOCAPOHeader(); // test server
+                CocaHandshake.XMLPortForCOCAPOHeader exportItemData = new CocaHandshake.XMLPortForCOCAPOHeader();
+                //CocaHandshake_.XMLPortForCOCAPOHeader exportItemData = new CocaHandshake_.XMLPortForCOCAPOHeader(); // test server
                 codeunit_service.GetPOForCOCA(ref exportItemData);
 
                 var items = exportItemData.POHeader.ToList();
@@ -503,8 +519,6 @@ namespace COCAAPI.Controllers
             string[] comp = { "SCPC", "SLPGC" };
 
             /* Decrypt sensitive parameters */
-            //string sc1 = "http://thulium.smcdacon.com:7077/BC130_POWER_TEST/WS/Sem%20Calaca%20Power%20Corporation/Codeunit/CocaHandshake";
-            //string sl1 = "http://thulium.smcdacon.com:7077/BC130_POWER_TEST/WS/Southwest%20Luzon%20Power%20Gen%20Corp/Codeunit/CocaHandshake";
             var username = Properties.Resources.NavSemiraraUname;
             var password = Properties.Resources.NavSemiraraPass;
             List<Models.PIDetail> piDetail = new List<Models.PIDetail>();
@@ -517,69 +531,78 @@ namespace COCAAPI.Controllers
                 else
                     url_link = sl;
 
-                /* Get Code Unit Properties */
-                //CocaHandshake_.CocaHandshake codeunit_service = new CocaHandshake_.CocaHandshake();
                 CocaHandshake.CocaHandshake codeunit_service = new CocaHandshake.CocaHandshake();
-                NetworkCredential netCred; Uri uri; ICredentials credentials;
+                //CocaHandshake_.CocaHandshake codeunit_service = new CocaHandshake_.CocaHandshake(); // test server
                 codeunit_service.Url = url_link;
                 codeunit_service.Timeout = 1800000;
-                netCred = new NetworkCredential(@"" + username, password);
-                uri = new Uri(codeunit_service.Url);
-                credentials = netCred.GetCredential(uri, "Basic");
-                codeunit_service.Credentials = credentials;
+                codeunit_service.Credentials = new NetworkCredential(username, password);
                 codeunit_service.PreAuthenticate = true;
-
-                //CocaHandshake_.XMLPortForCOCAPIHeader exportItemData = new CocaHandshake_.XMLPortForCOCAPIHeader();
                 CocaHandshake.XMLPortForCOCAPIHeader exportItemData = new CocaHandshake.XMLPortForCOCAPIHeader();
+                //CocaHandshake_.XMLPortForCOCAPIHeader exportItemData = new CocaHandshake_.XMLPortForCOCAPIHeader(); // test server
                 codeunit_service.GetPIForCOCA(ref exportItemData);
-                
+
                 if (exportItemData.PIHeader != null)
                 {
-                    var conString = "Database=COCAWEBDB;Server=192.168.70.231;user=ict;password=ict@ictdept";
-                    string query = "select PONo from PODetails";
-                    SqlConnection conn = new SqlConnection(conString);
-                    conn.Open();
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    SqlDataAdapter sqlDa = new SqlDataAdapter(cmd);
-                    DataTable dt = new DataTable();
-                    var arr = new List<PODetail>();
-                    sqlDa.Fill(dt);
+                    
+                    //var conString = "Database=COCAWEBDB;Server=192.168.70.231;user=ict;password=ict@ictdept";
+                    //string query = "select PONo from PODetails";
+                    //SqlConnection conn = new SqlConnection(conString);
+                    //conn.Open();
+                    //SqlCommand cmd = new SqlCommand(query, conn);
+                    //SqlDataAdapter sqlDa = new SqlDataAdapter(cmd);
+                    //DataTable dt = new DataTable();
+                    //var arr = new List<PODetail>();
+                    //sqlDa.Fill(dt);
 
-                    for (var i = 0; i < dt.Rows.Count; i++)
-                    {
-                        arr.Add(new PODetail
-                        {
-                            PONo = dt.Rows[i]["PONo"].ToString()
-                        });
-                    }
-                    var poNo = arr.Select(e => e.PONo).ToList();
+                    //for (var i = 0; i < dt.Rows.Count; i++)
+                    //{
+                    //    arr.Add(new PODetail
+                    //    {
+                    //        PONo = dt.Rows[i]["PONo"].ToString()
+                    //    });
+                    //}
+                    //var poNo = arr.Select(e => e.PONo).ToList();
 
 
-                    var items = exportItemData.PIHeader;
-                    var data = items.Where(e => poNo.Contains(e.PONo)).ToList();
+                    var items = exportItemData.PIHeader.ToList();
+                    //var data = items.Where(e => poNo.Contains(e.PONo)).ToList();
 
                     // For Vendor Ledger Entry
-                    var vlEntry = exportItemData.PIHeader[0].VendorLedgerEntry.ToList();
+                    //var vlEntry = exportItemData.PIHeader[0].VendorLedgerEntry.ToList();
 
                     // For CV Entry
-                    var cvEntry = exportItemData.CheckLedgerEntry;
+                    var cvEntry = exportItemData.CheckLedgerEntry.ToList();
 
-                    foreach (var item in data)
+                    foreach (var item in items)
                     {
                         string cvDate = "";
                         string cvStatus = "";
                         string cvAmount = "0";
-                        var _vlEntry = vlEntry.FirstOrDefault(e => e.DocumentNo == item.PPINNo);
-                        var cvRefNo = _vlEntry == null ? "" : (_vlEntry.ClosedByEntryNo == 0 ? _vlEntry.AppliesToId : _vlEntry.ClosedByEntryNo.ToString());
-                        var _vlEntry2 = vlEntry.FirstOrDefault(e => e.EntryNo.ToString() == cvRefNo);
+
+                        var _vlEntry = items.FirstOrDefault(e => e.VendorLedgerEntry[0].DocumentNo == item.PPINNo);
+                        var cvRefNo = _vlEntry == null ? "" : (_vlEntry.VendorLedgerEntry[0].ClosedByEntryNo == 0 ? _vlEntry.VendorLedgerEntry[0].AppliesToId : _vlEntry.VendorLedgerEntry[0].ClosedByEntryNo.ToString());
+                        var _vlEntry2 = items.FirstOrDefault(e => e.VendorLedgerEntry[0].EntryNo.ToString() == cvRefNo);
                         if (_vlEntry2 != null)
                         {
-                            var _clEntry = cvEntry.FirstOrDefault(e => e.CheckNo == _vlEntry2.DocumentNo);
+                            var _clEntry = cvEntry.FirstOrDefault(e => e.CheckNo == _vlEntry2.VendorLedgerEntry[0].DocumentNo);
                             cvRefNo = _clEntry == null ? "" : _clEntry.CheckNo;
                             cvDate = _clEntry == null ? "" : _clEntry.CheckDate;
                             cvStatus = _clEntry == null ? "" : _clEntry.EntryStatus;
                             cvAmount = _clEntry == null ? "0" : _clEntry.Amount;
                         }
+
+
+                        //var _vlEntry = vlEntry.FirstOrDefault(e => e.DocumentNo == item.PPINNo);
+                        //var cvRefNo = _vlEntry == null ? "" : (_vlEntry.ClosedByEntryNo == 0 ? _vlEntry.AppliesToId : _vlEntry.ClosedByEntryNo.ToString());
+                        //var _vlEntry2 = vlEntry.FirstOrDefault(e => e.EntryNo.ToString() == cvRefNo);
+                        //if (_vlEntry2 != null)
+                        //{
+                        //    var _clEntry = cvEntry.FirstOrDefault(e => e.CheckNo == _vlEntry2.DocumentNo);
+                        //    cvRefNo = _clEntry == null ? "" : _clEntry.CheckNo;
+                        //    cvDate = _clEntry == null ? "" : _clEntry.CheckDate;
+                        //    cvStatus = _clEntry == null ? "" : _clEntry.EntryStatus;
+                        //    cvAmount = _clEntry == null ? "0" : _clEntry.Amount;
+                        //}
 
                         if (item.PONo != "")
                         {
@@ -884,13 +907,64 @@ namespace COCAAPI.Controllers
             return Ok(department.ToList());
         }
 
-        //[HttpGet]
-        //[Route("api/ImportPODetails")]
-        //public IHttpActionResult ImportPODetails(string PRNo,
-        //    )
-        //{
+        [HttpGet]
+        [Route("api/ImportPODetails")]
+        public IHttpActionResult ImportPODetails(string PRNo,
+            string PONo,
+            string BuyFromVendorNo,
+            string BuyFromVendorName,
+            string POStatus,
+            string POTotalLineAmount,
+            string PaymentType,
+            string Company,
+            string PlantNo,
+            string OrderDate,
+            string POPaymentTerms)
+        {
 
-        //}
+            var conString = "Database=COCAWEBDB;Server=192.168.70.231;user=ict;password=ict@ictdept";
+            string query = "insert into PODetails (PRNo,PONo,BuyFromVendorNo,BuyFromVendorName,POStatus,POTotalLineAmount,PaymentType," +
+                "Company,PlantNo,OrderDate,POPaymentTerms) values (@prNo,@poNo,@buyFromVendorNo,@buyFromVendorName,@poStatus," +
+                "@poTotalLineAmount,@paymentType,@company,@plantNo,@orderDate,@poPaymentTerms)";
+
+            var pType = PaymentType == "0" || PaymentType == null ? "" : (PaymentType == "1" ? "One-time Payment" : "Progress Billing");
+            SqlConnection conn = new SqlConnection(conString);
+            conn.Open();
+            SqlCommand cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@prNo", PRNo);
+            cmd.Parameters.AddWithValue("@poNo", PONo);
+            cmd.Parameters.AddWithValue("@buyFromVendorNo", BuyFromVendorNo);
+            cmd.Parameters.AddWithValue("@BuyFromVendorName", BuyFromVendorName);
+            cmd.Parameters.AddWithValue("@poStatus", POStatus);
+            cmd.Parameters.AddWithValue("@poTotalLineAmount", POTotalLineAmount);
+            cmd.Parameters.AddWithValue("@paymentType", PaymentType);
+            cmd.Parameters.AddWithValue("@company", Company);
+            cmd.Parameters.AddWithValue("@plantNo", PlantNo);
+            cmd.Parameters.AddWithValue("@orderDate", OrderDate);
+            cmd.Parameters.AddWithValue("@poPaymentTerms", POPaymentTerms);
+
+            try
+            {
+                cmd.ExecuteNonQuery();
+                String[] xs = new String[] { "Record Saved", PONo };
+                String[] Status = new String[2];
+                Status[0] = xs[0];
+                Status[1] = xs[1];
+                return Ok(Status);
+            }
+            catch (Exception x)
+            {
+                String[] xs = new String[] { "Record Not Saved", PONo };
+                String[] Status = new String[2];
+                Status[0] = x.Message;
+                Status[1] = xs[1];
+                return Ok(Status);
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
 
     }
 }

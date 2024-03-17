@@ -29,6 +29,8 @@ namespace COCAAPI.CocaHandshake {
     [System.Web.Services.WebServiceBindingAttribute(Name="CocaHandshake_Binding", Namespace="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake")]
     public partial class CocaHandshake : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
+        private System.Threading.SendOrPostCallback GetPOForCOCAOperationCompleted;
+        
         private System.Threading.SendOrPostCallback InsertIntoPRSummaryOperationCompleted;
         
         private System.Threading.SendOrPostCallback UpdateIntoPRSummaryOperationCompleted;
@@ -50,8 +52,6 @@ namespace COCAAPI.CocaHandshake {
         private System.Threading.SendOrPostCallback ExposeNAVPOCOCAOperationCompleted;
         
         private System.Threading.SendOrPostCallback GetPRForCOCAOperationCompleted;
-        
-        private System.Threading.SendOrPostCallback GetPOForCOCAOperationCompleted;
         
         private System.Threading.SendOrPostCallback GetPIForCOCAOperationCompleted;
         
@@ -96,6 +96,9 @@ namespace COCAAPI.CocaHandshake {
         }
         
         /// <remarks/>
+        public event GetPOForCOCACompletedEventHandler GetPOForCOCACompleted;
+        
+        /// <remarks/>
         public event InsertIntoPRSummaryCompletedEventHandler InsertIntoPRSummaryCompleted;
         
         /// <remarks/>
@@ -129,13 +132,39 @@ namespace COCAAPI.CocaHandshake {
         public event GetPRForCOCACompletedEventHandler GetPRForCOCACompleted;
         
         /// <remarks/>
-        public event GetPOForCOCACompletedEventHandler GetPOForCOCACompleted;
-        
-        /// <remarks/>
         public event GetPIForCOCACompletedEventHandler GetPIForCOCACompleted;
         
         /// <remarks/>
         public event GetDeptForCOCACompletedEventHandler GetDeptForCOCACompleted;
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/CocaHandshake:GetPOForCOCA", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake", ResponseElementName="GetPOForCOCA_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void GetPOForCOCA(ref XMLPortForCOCAPOHeader xMLCOCAPOHeader) {
+            object[] results = this.Invoke("GetPOForCOCA", new object[] {
+                        xMLCOCAPOHeader});
+            xMLCOCAPOHeader = ((XMLPortForCOCAPOHeader)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetPOForCOCAAsync(XMLPortForCOCAPOHeader xMLCOCAPOHeader) {
+            this.GetPOForCOCAAsync(xMLCOCAPOHeader, null);
+        }
+        
+        /// <remarks/>
+        public void GetPOForCOCAAsync(XMLPortForCOCAPOHeader xMLCOCAPOHeader, object userState) {
+            if ((this.GetPOForCOCAOperationCompleted == null)) {
+                this.GetPOForCOCAOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetPOForCOCAOperationCompleted);
+            }
+            this.InvokeAsync("GetPOForCOCA", new object[] {
+                        xMLCOCAPOHeader}, this.GetPOForCOCAOperationCompleted, userState);
+        }
+        
+        private void OnGetPOForCOCAOperationCompleted(object arg) {
+            if ((this.GetPOForCOCACompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetPOForCOCACompleted(this, new GetPOForCOCACompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/CocaHandshake:InsertIntoPRSummary", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake", ResponseElementName="InsertIntoPRSummary_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -573,35 +602,6 @@ namespace COCAAPI.CocaHandshake {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/CocaHandshake:GetPOForCOCA", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake", ResponseElementName="GetPOForCOCA_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public void GetPOForCOCA(ref XMLPortForCOCAPOHeader xMLCOCAPOHeader) {
-            object[] results = this.Invoke("GetPOForCOCA", new object[] {
-                        xMLCOCAPOHeader});
-            xMLCOCAPOHeader = ((XMLPortForCOCAPOHeader)(results[0]));
-        }
-        
-        /// <remarks/>
-        public void GetPOForCOCAAsync(XMLPortForCOCAPOHeader xMLCOCAPOHeader) {
-            this.GetPOForCOCAAsync(xMLCOCAPOHeader, null);
-        }
-        
-        /// <remarks/>
-        public void GetPOForCOCAAsync(XMLPortForCOCAPOHeader xMLCOCAPOHeader, object userState) {
-            if ((this.GetPOForCOCAOperationCompleted == null)) {
-                this.GetPOForCOCAOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetPOForCOCAOperationCompleted);
-            }
-            this.InvokeAsync("GetPOForCOCA", new object[] {
-                        xMLCOCAPOHeader}, this.GetPOForCOCAOperationCompleted, userState);
-        }
-        
-        private void OnGetPOForCOCAOperationCompleted(object arg) {
-            if ((this.GetPOForCOCACompleted != null)) {
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.GetPOForCOCACompleted(this, new GetPOForCOCACompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-            }
-        }
-        
-        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:microsoft-dynamics-schemas/codeunit/CocaHandshake:GetPIForCOCA", RequestNamespace="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake", ResponseElementName="GetPIForCOCA_Result", ResponseNamespace="urn:microsoft-dynamics-schemas/codeunit/CocaHandshake", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public void GetPIForCOCA(ref XMLPortForCOCAPIHeader xMLCOCAPIHeader) {
             object[] results = this.Invoke("GetPIForCOCA", new object[] {
@@ -683,21 +683,21 @@ namespace COCAAPI.CocaHandshake {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:microsoft-dynamics-nav/xmlports/x50001")]
-    public partial class ExportNAVPOIntoEContracts {
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:microsoft-dynamics-nav/xmlports/x50107")]
+    public partial class XMLPortForCOCAPOHeader {
         
-        private PurchaseHeader[] purchaseHeaderField;
+        private POHeader[] pOHeaderField;
         
         private string[] textField;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("PurchaseHeader")]
-        public PurchaseHeader[] PurchaseHeader {
+        [System.Xml.Serialization.XmlElementAttribute("POHeader")]
+        public POHeader[] POHeader {
             get {
-                return this.purchaseHeaderField;
+                return this.pOHeaderField;
             }
             set {
-                this.purchaseHeaderField = value;
+                this.pOHeaderField = value;
             }
         }
         
@@ -718,49 +718,44 @@ namespace COCAAPI.CocaHandshake {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:microsoft-dynamics-nav/xmlports/x50001")]
-    public partial class PurchaseHeader {
-        
-        private string pONoField;
-        
-        private string orderDateField;
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:microsoft-dynamics-nav/xmlports/x50107")]
+    public partial class POHeader {
         
         private string pRNoField;
         
-        private string requisitionDateField;
+        private string pONoField;
         
-        private string vendorNoField;
+        private string dateArchivedField;
         
-        private string vendorNameField;
+        private string buyFromVendorNoField;
         
-        private string amountVATField;
+        private string buyFromVendorNameField;
         
-        private string purchaserCodeField;
+        private string pOStatusField;
+        
+        private string pOTotalLineAmountField;
+        
+        private string pOBillingTermsField;
+        
+        private int noOfProgressBillingField;
+        
+        private int versionNoField;
+        
+        private string paymentTypeField;
         
         private string plantNoField;
         
-        private string[] companyNameField;
+        private string pOPaymentTermCodeField;
         
-        private string statusField;
+        private string orderDateField;
         
-        /// <remarks/>
-        public string PONo {
-            get {
-                return this.pONoField;
-            }
-            set {
-                this.pONoField = value;
-            }
-        }
+        private string pBMilestoneField;
         
-        /// <remarks/>
-        public string OrderDate {
-            get {
-                return this.orderDateField;
-            }
-            set {
-                this.orderDateField = value;
-            }
+        private POLine[] pOLineField;
+        
+        public POHeader() {
+            this.noOfProgressBillingField = 0;
+            this.versionNoField = 0;
         }
         
         /// <remarks/>
@@ -774,52 +769,102 @@ namespace COCAAPI.CocaHandshake {
         }
         
         /// <remarks/>
-        public string RequisitionDate {
+        public string PONo {
             get {
-                return this.requisitionDateField;
+                return this.pONoField;
             }
             set {
-                this.requisitionDateField = value;
+                this.pONoField = value;
             }
         }
         
         /// <remarks/>
-        public string VendorNo {
+        public string DateArchived {
             get {
-                return this.vendorNoField;
+                return this.dateArchivedField;
             }
             set {
-                this.vendorNoField = value;
+                this.dateArchivedField = value;
             }
         }
         
         /// <remarks/>
-        public string VendorName {
+        public string BuyFromVendorNo {
             get {
-                return this.vendorNameField;
+                return this.buyFromVendorNoField;
             }
             set {
-                this.vendorNameField = value;
+                this.buyFromVendorNoField = value;
             }
         }
         
         /// <remarks/>
-        public string AmountVAT {
+        public string BuyFromVendorName {
             get {
-                return this.amountVATField;
+                return this.buyFromVendorNameField;
             }
             set {
-                this.amountVATField = value;
+                this.buyFromVendorNameField = value;
             }
         }
         
         /// <remarks/>
-        public string PurchaserCode {
+        public string POStatus {
             get {
-                return this.purchaserCodeField;
+                return this.pOStatusField;
             }
             set {
-                this.purchaserCodeField = value;
+                this.pOStatusField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string POTotalLineAmount {
+            get {
+                return this.pOTotalLineAmountField;
+            }
+            set {
+                this.pOTotalLineAmountField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string POBillingTerms {
+            get {
+                return this.pOBillingTermsField;
+            }
+            set {
+                this.pOBillingTermsField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public int NoOfProgressBilling {
+            get {
+                return this.noOfProgressBillingField;
+            }
+            set {
+                this.noOfProgressBillingField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public int VersionNo {
+            get {
+                return this.versionNoField;
+            }
+            set {
+                this.versionNoField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string PaymentType {
+            get {
+                return this.paymentTypeField;
+            }
+            set {
+                this.paymentTypeField = value;
             }
         }
         
@@ -834,23 +879,112 @@ namespace COCAAPI.CocaHandshake {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("CompanyName")]
-        public string[] CompanyName {
+        public string POPaymentTermCode {
             get {
-                return this.companyNameField;
+                return this.pOPaymentTermCodeField;
             }
             set {
-                this.companyNameField = value;
+                this.pOPaymentTermCodeField = value;
             }
         }
         
         /// <remarks/>
-        public string Status {
+        public string OrderDate {
             get {
-                return this.statusField;
+                return this.orderDateField;
             }
             set {
-                this.statusField = value;
+                this.orderDateField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string PBMilestone {
+            get {
+                return this.pBMilestoneField;
+            }
+            set {
+                this.pBMilestoneField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("POLine")]
+        public POLine[] POLine {
+            get {
+                return this.pOLineField;
+            }
+            set {
+                this.pOLineField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9032.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:microsoft-dynamics-nav/xmlports/x50107")]
+    public partial class POLine {
+        
+        private string no_LineField;
+        
+        private string pRNo_LineField;
+        
+        private string descriptionField;
+        
+        private string description2Field;
+        
+        private string newDescriptionField;
+        
+        /// <remarks/>
+        public string No_Line {
+            get {
+                return this.no_LineField;
+            }
+            set {
+                this.no_LineField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string PRNo_Line {
+            get {
+                return this.pRNo_LineField;
+            }
+            set {
+                this.pRNo_LineField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Description {
+            get {
+                return this.descriptionField;
+            }
+            set {
+                this.descriptionField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Description2 {
+            get {
+                return this.description2Field;
+            }
+            set {
+                this.description2Field = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string NewDescription {
+            get {
+                return this.newDescriptionField;
+            }
+            set {
+                this.newDescriptionField = value;
             }
         }
     }
@@ -1193,317 +1327,6 @@ namespace COCAAPI.CocaHandshake {
             }
             set {
                 this.checkLedgerEntryField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlTextAttribute()]
-        public string[] Text {
-            get {
-                return this.textField;
-            }
-            set {
-                this.textField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9032.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:microsoft-dynamics-nav/xmlports/x50107")]
-    public partial class POLine {
-        
-        private string no_LineField;
-        
-        private string pRNo_LineField;
-        
-        private string descriptionField;
-        
-        private string description2Field;
-        
-        private string newDescriptionField;
-        
-        /// <remarks/>
-        public string No_Line {
-            get {
-                return this.no_LineField;
-            }
-            set {
-                this.no_LineField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string PRNo_Line {
-            get {
-                return this.pRNo_LineField;
-            }
-            set {
-                this.pRNo_LineField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string Description {
-            get {
-                return this.descriptionField;
-            }
-            set {
-                this.descriptionField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string Description2 {
-            get {
-                return this.description2Field;
-            }
-            set {
-                this.description2Field = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string NewDescription {
-            get {
-                return this.newDescriptionField;
-            }
-            set {
-                this.newDescriptionField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9032.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:microsoft-dynamics-nav/xmlports/x50107")]
-    public partial class POHeader {
-        
-        private string pRNoField;
-        
-        private string pONoField;
-        
-        private string dateArchivedField;
-        
-        private string buyFromVendorNoField;
-        
-        private string buyFromVendorNameField;
-        
-        private string pOStatusField;
-        
-        private string pOTotalLineAmountField;
-        
-        private string pOBillingTermsField;
-        
-        private int noOfProgressBillingField;
-        
-        private int versionNoField;
-        
-        private string paymentTypeField;
-        
-        private string plantNoField;
-        
-        private string pOPaymentTermCodeField;
-        
-        private string orderDateField;
-        
-        private string pBMilestoneField;
-        
-        private POLine[] pOLineField;
-        
-        public POHeader() {
-            this.noOfProgressBillingField = 0;
-            this.versionNoField = 0;
-        }
-        
-        /// <remarks/>
-        public string PRNo {
-            get {
-                return this.pRNoField;
-            }
-            set {
-                this.pRNoField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string PONo {
-            get {
-                return this.pONoField;
-            }
-            set {
-                this.pONoField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string DateArchived {
-            get {
-                return this.dateArchivedField;
-            }
-            set {
-                this.dateArchivedField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string BuyFromVendorNo {
-            get {
-                return this.buyFromVendorNoField;
-            }
-            set {
-                this.buyFromVendorNoField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string BuyFromVendorName {
-            get {
-                return this.buyFromVendorNameField;
-            }
-            set {
-                this.buyFromVendorNameField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string POStatus {
-            get {
-                return this.pOStatusField;
-            }
-            set {
-                this.pOStatusField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string POTotalLineAmount {
-            get {
-                return this.pOTotalLineAmountField;
-            }
-            set {
-                this.pOTotalLineAmountField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string POBillingTerms {
-            get {
-                return this.pOBillingTermsField;
-            }
-            set {
-                this.pOBillingTermsField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public int NoOfProgressBilling {
-            get {
-                return this.noOfProgressBillingField;
-            }
-            set {
-                this.noOfProgressBillingField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public int VersionNo {
-            get {
-                return this.versionNoField;
-            }
-            set {
-                this.versionNoField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string PaymentType {
-            get {
-                return this.paymentTypeField;
-            }
-            set {
-                this.paymentTypeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string PlantNo {
-            get {
-                return this.plantNoField;
-            }
-            set {
-                this.plantNoField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string POPaymentTermCode {
-            get {
-                return this.pOPaymentTermCodeField;
-            }
-            set {
-                this.pOPaymentTermCodeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string OrderDate {
-            get {
-                return this.orderDateField;
-            }
-            set {
-                this.orderDateField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string PBMilestone {
-            get {
-                return this.pBMilestoneField;
-            }
-            set {
-                this.pBMilestoneField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("POLine")]
-        public POLine[] POLine {
-            get {
-                return this.pOLineField;
-            }
-            set {
-                this.pOLineField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9032.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:microsoft-dynamics-nav/xmlports/x50107")]
-    public partial class XMLPortForCOCAPOHeader {
-        
-        private POHeader[] pOHeaderField;
-        
-        private string[] textField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("POHeader")]
-        public POHeader[] POHeader {
-            get {
-                return this.pOHeaderField;
-            }
-            set {
-                this.pOHeaderField = value;
             }
         }
         
@@ -2181,6 +2004,209 @@ namespace COCAAPI.CocaHandshake {
     }
     
     /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9032.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:microsoft-dynamics-nav/xmlports/x50001")]
+    public partial class PurchaseHeader {
+        
+        private string pONoField;
+        
+        private string orderDateField;
+        
+        private string pRNoField;
+        
+        private string requisitionDateField;
+        
+        private string vendorNoField;
+        
+        private string vendorNameField;
+        
+        private string amountVATField;
+        
+        private string purchaserCodeField;
+        
+        private string plantNoField;
+        
+        private string[] companyNameField;
+        
+        private string statusField;
+        
+        /// <remarks/>
+        public string PONo {
+            get {
+                return this.pONoField;
+            }
+            set {
+                this.pONoField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string OrderDate {
+            get {
+                return this.orderDateField;
+            }
+            set {
+                this.orderDateField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string PRNo {
+            get {
+                return this.pRNoField;
+            }
+            set {
+                this.pRNoField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string RequisitionDate {
+            get {
+                return this.requisitionDateField;
+            }
+            set {
+                this.requisitionDateField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string VendorNo {
+            get {
+                return this.vendorNoField;
+            }
+            set {
+                this.vendorNoField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string VendorName {
+            get {
+                return this.vendorNameField;
+            }
+            set {
+                this.vendorNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string AmountVAT {
+            get {
+                return this.amountVATField;
+            }
+            set {
+                this.amountVATField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string PurchaserCode {
+            get {
+                return this.purchaserCodeField;
+            }
+            set {
+                this.purchaserCodeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string PlantNo {
+            get {
+                return this.plantNoField;
+            }
+            set {
+                this.plantNoField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("CompanyName")]
+        public string[] CompanyName {
+            get {
+                return this.companyNameField;
+            }
+            set {
+                this.companyNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Status {
+            get {
+                return this.statusField;
+            }
+            set {
+                this.statusField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.9032.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:microsoft-dynamics-nav/xmlports/x50001")]
+    public partial class ExportNAVPOIntoEContracts {
+        
+        private PurchaseHeader[] purchaseHeaderField;
+        
+        private string[] textField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("PurchaseHeader")]
+        public PurchaseHeader[] PurchaseHeader {
+            get {
+                return this.purchaseHeaderField;
+            }
+            set {
+                this.purchaseHeaderField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlTextAttribute()]
+        public string[] Text {
+            get {
+                return this.textField;
+            }
+            set {
+                this.textField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9032.0")]
+    public delegate void GetPOForCOCACompletedEventHandler(object sender, GetPOForCOCACompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9032.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetPOForCOCACompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetPOForCOCACompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public XMLPortForCOCAPOHeader xMLCOCAPOHeader {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((XMLPortForCOCAPOHeader)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9032.0")]
     public delegate void InsertIntoPRSummaryCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
     
@@ -2308,32 +2334,6 @@ namespace COCAAPI.CocaHandshake {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((XMLPortForCOCAPRHeader)(this.results[0]));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9032.0")]
-    public delegate void GetPOForCOCACompletedEventHandler(object sender, GetPOForCOCACompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.9032.0")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class GetPOForCOCACompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        internal GetPOForCOCACompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
-        
-        /// <remarks/>
-        public XMLPortForCOCAPOHeader xMLCOCAPOHeader {
-            get {
-                this.RaiseExceptionIfNecessary();
-                return ((XMLPortForCOCAPOHeader)(this.results[0]));
             }
         }
     }
